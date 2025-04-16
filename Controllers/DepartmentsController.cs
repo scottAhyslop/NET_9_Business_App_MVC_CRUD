@@ -6,7 +6,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
     public class DepartmentsController : Controller
     {
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string? message)
         {
             var departments = DepartmentsRepository.GetDepartments();
             var style = "<style>.center{margin:auto; width:50%; text-align:center; border: 3px solid #222;padding:1rem;}.header{text-align:left}.table{text-align:center;}  </style>";
@@ -14,6 +14,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             var output = $@"
                <div class='center'>
                     <div class='header'><h2 style='text-align:left'>Departments List</h2>
+                    <div class='header'>{message}</div>
                     <a href='/Departments/Create'>Create</a></div>
                     <br/>
                     <br/>
@@ -92,7 +93,45 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
             }
         }//end Edit
+
+        [HttpGet]
+        public IActionResult Create() 
+        {
+            var content = @"
+                <h2><b>Create a new Department</b></h2>
+                <form method='post' action='departments/create'>
+                    <label>Name: <input type='text' name='DepartmentName'/></label><br/><br/>
+                    <label>Location:<input type='text' name='DepartmentLocation'/></label><br/><br/>
+                    <label>Description:<input type='text' name='DepartmentDescription'/></label><br/><br/>
+                    <label>Annual Sales:<input type='text' name='DepartmentAnnualSales'/></label><br/><br/>
+                    <button type='submit'>Create</button>
+                    <br/><br/>
+                    <a href='/departments/'>Cancel</a>
+                </form>
+            ";        
+            return Content(content, "text/html");
+        }//end Create
         
+        [HttpPost]
+        public IActionResult Create(Department department)
+        {
+            //check on model state and if invalid, write errors to console TODO: write to log file later
+            if (!ModelState.IsValid)
+            {
+                //return itemized list of any errors
+                return Content(FormatErrorsInHtml(), "text/html");
+            }
+            else
+            {
+                //if the model is valid, add the department
+                DepartmentsRepository.AddDepartment(department);
+                return RedirectToAction(nameof(Index));
+            }
+            
+
+        }//end Create
+        
+
         //error handler to format error messages in Html
         private string FormatErrorsInHtml()
         {
