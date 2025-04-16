@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NET_9_Business_App_MVC.Models;
 
 namespace NET_9_Business_App_MVC_CRUD.Controllers
 {
@@ -39,7 +40,8 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                    <tbody>
                 </div>";
             return Content(style + output, "text/html");
-        }//end Index (i.e. GetDepartments)
+        }
+        //end Index (i.e. GetDepartments)
 
         [HttpGet]
         public IActionResult Details(int departmentId)
@@ -50,7 +52,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
             }
 
-            var style = "<style>.center{margin:auto; width:50%; text-align:center; border: 3px solid #222;padding:1rem;}.header{text-align:left}.table{text-align:center;} .details label{text-alight:left;}  </style>";
+            var style = "<style>.center{margin:auto; width:50%; text-align:center; border: 3px solid #222;padding:1rem;} </style>";
 
             var content = $@"
             <div class='center'>
@@ -68,6 +70,55 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             </div>";
 
             return Content(style+content, "text/html");
+        }
+        //end Details GetDepartmentById
+
+        [HttpPost]
+        public IActionResult Edit(Department department)
+        {
+            //check on model state and if invalid, write errors to console TODO: write to log file later
+            if (!ModelState.IsValid) {
+               //return itemized list of any errors
+               return Content(FormatErrorsInHtml(), "text/html");
+
+            }
+            if (DepartmentsRepository.UpdateDepartment(department))
+            {
+                //if update is successful, redirect to Index (probably with a message TODO: add message)
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
+            }
+        }//end Edit
+        
+        //error handler to format error messages in Html
+        private string FormatErrorsInHtml()
+        {
+            List<string> errorMessages = new List<string>();
+            foreach (var value in ModelState.Values)
+            {
+                foreach (var error in value.Errors)
+                {
+                    errorMessages.Add(error.ErrorMessage);
+                }
+            }
+            string output = string.Empty;
+            if (errorMessages.Count>0)
+            {
+                //if there are any error messages, format them in an Html itemized list
+                output = $@"
+                    <ul>
+                        {string.Join("", errorMessages.Select(
+                          error => 
+                          $"<li style='color:orange;'>{error}</li>"))}
+                    </ul>    
+
+                ";
+            }
+
+            return output;
         }
     }
 }
