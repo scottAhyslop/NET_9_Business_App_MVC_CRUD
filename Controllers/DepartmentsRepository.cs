@@ -14,13 +14,15 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         new Department(4,"Percussion", "Ottawa St.", "Selling drums, bongos, and cymbals", 850000),
         };
 
+        //GET
         public static List<Department> GetDepartments() => Departments;
 
+        //GET by Id
         public static Department? GetDepartmentById(int id)
         {
             return Departments.FirstOrDefault(dep => dep.DepartmentId == id);
         }
-
+        //POST Add department
         public static void AddDepartment(Department? Department)
         {
             if (Department is not null)
