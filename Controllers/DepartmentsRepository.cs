@@ -27,7 +27,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         {
             if (Department is not null)
             {
-                int maxId = Departments.Max(x => x.DepartmentId);
+                int maxId = Departments.Max(dep => dep.DepartmentId);
                 Department.DepartmentId = maxId + 1;
                 Departments.Add(Department);
             }
@@ -41,6 +41,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 if (emp is not null)
                 {
                     emp.DepartmentName = Department.DepartmentName;
+                    emp.DepartmentLocation = Department.DepartmentLocation;
                     emp.DepartmentDescription = Department.DepartmentDescription;                   
 
                     return true;

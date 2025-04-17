@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NET_9_Business_App_MVC.Models;
+using System.Runtime.Intrinsics.Arm;
 
 namespace NET_9_Business_App_MVC_CRUD.Controllers
 {
@@ -9,7 +10,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         public IActionResult Index(string? message)
         {
             var departments = DepartmentsRepository.GetDepartments();
-            var style = "<style>.center{margin:auto; width:50%; text-align:center; border: 3px solid #222;padding:1rem;}.header{text-align:left}.table{text-align:center;}  </style>";
+            var style = "<style>.center{margin:auto; width:75%; text-align:center; border: 3px solid #222;padding:1rem;}.header{text-align:left}.table{text-align:center;}  </style>";
 
             var output = $@"
                <div class='center'>
@@ -24,6 +25,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                         <th>Department ID</th>
                         <th>Department Name</th>
                         <th>Department Location</th>
+                        <th>Decription</th>
                         <th>Actions</th>
                        </tr>
                    </thead>
@@ -33,9 +35,11 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                             <td>{dep.DepartmentId}</td>
                             <td>{dep.DepartmentName}</td>
                             <td>{dep.DepartmentLocation}</td>
+                            <td>{dep.DepartmentDescription}</td>
                             <td><a href='/Departments/Edit/{dep.DepartmentId}'>Edit</a></td>
-                            <td><a href='/Departments/Delete/{dep.DepartmentId}'>Delete  </a></td>
                             <td><a href='/Departments/Details/{dep.DepartmentId}'>Details</a></td>
+                            <td><form  style='padding-top:0.65rem;'method='post' action='departments/delete/{dep.DepartmentId}'>
+                               <button type='submit' style='background-color:orange;color:white; '>Delete</button></form></td>
                         </tr>"))
                       }
                    <tbody>
@@ -59,14 +63,18 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             <div class='center'>
                 <h1>Department: {department.DepartmentName}'s Details</h1>
                 <form class='details' method='post' action='/departments/edit'>
-                    <input type='hidden', name='departmentId' value='{department.DepartmentId}'/>                    <label>Name: <input type='text' name='Name' 
-                       value='{department.DepartmentName}'</label><br/><br/>
-                      <label>Description: <input type='text' name='Description'
+                    <input type='hidden', name='departmentId' value='{department.DepartmentId}'/>
+                    <label>Name: <input type='text' name='Name'                        value='{department.DepartmentName}'</label><br/><br/>
+                  <label>Location: <input type='text' name='DepartmentLocation'                        value='{department.DepartmentLocation}'</label><br/><br/>
+                      <label>Description: <input type='text' name='DepartmentDescription'
                         value='{department.DepartmentDescription}'/></label><br/><br/>
                     
                     <a href='/departments/'>Cancel</a>
                     <br/><br/>       
                     <button type='submit'>Update</button>
+                    <br/><br/>
+                    <form  style='padding-top:0.65rem;'method='post' action='departments/delete/{department.DepartmentId}'>
+                    <button type='submit' style='background-color:orange;color:white; '>Delete</button></form>
                 </form>
             </div>";
 
@@ -99,18 +107,18 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         {
             var content = @"
                 <h2><b>Create a new Department</b></h2>
-                <form method='post' action='departments/create'>
-                    <label>Name: <input type='text' name='DepartmentName'/></label><br/><br/>
-                    <label>Location:<input type='text' name='DepartmentLocation'/></label><br/><br/>
-                    <label>Description:<input type='text' name='DepartmentDescription'/></label><br/><br/>
-                    <label>Annual Sales:<input type='text' name='DepartmentAnnualSales'/></label><br/><br/>
+                <form method='post' action='departments/Create'>
+                    <label>Name:  <input type='text' name='DepartmentName'/></label><br/><br/>
+                    <label>Location:  <input type='text' name='DepartmentLocation'/></label><br/><br/>
+                    <label>Description:  <input type='text' name='DepartmentDescription'/></label><br/><br/>
+                    <label>Annual Sales:  <input type='text' name='DepartmentAnnualSales'/></label><br/><br/>
                     <button type='submit'>Create</button>
                     <br/><br/>
                     <a href='/departments/'>Cancel</a>
                 </form>
             ";        
             return Content(content, "text/html");
-        }//end Create
+        }//end form for Create
         
         [HttpPost]
         public IActionResult Create(Department department)
@@ -127,10 +135,26 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 DepartmentsRepository.AddDepartment(department);
                 return RedirectToAction(nameof(Index));
             }
-            
 
-        }//end Create
-        
+
+        }//end Create to add created department from form object
+
+        [HttpPost]
+        public IActionResult Delete(int departmentId) {
+
+            var department = DepartmentsRepository.GetDepartmentById(departmentId);
+            if (department is not null)
+            {
+                ModelState.AddModelError($"{departmentId}", "Department not found");
+                return Content(FormatErrorsInHtml(),"text/html");
+            }
+            else
+            {
+                DepartmentsRepository.DeleteDepartment(department);
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
 
         //error handler to format error messages in Html
         private string FormatErrorsInHtml()
