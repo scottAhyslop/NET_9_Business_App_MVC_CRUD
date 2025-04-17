@@ -1,29 +1,25 @@
 ﻿@using NET_9_Business_App_MVC.Models
-@{
-    ViewData["Title"] = "Department Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 @model Department
-<a href='/departments/'>Back to Departments</a>
-        <style>.center{margin:auto; width:50%; text-align:center; border: 3px solid #222;padding:1rem;} </style>";
+    <style>.center{margin:auto; width:50%; text-align:center; border: 3px solid #222;padding:1rem;} </style>";
    <div class='center'>
-    <h1>Department: @Model.DepartmentName's Details</h1>
-             <form method='post' action='/departments/edit'>
-        <input type='hidden' , name='@Model.DepartmentId' value='@Model.DepartmentId}' />
-        <label>Name: <input type='text' name='@Model.DepartmentName' value='@Model.DepartmentName}' /></label>
-        <br /><br />
-        <label>Location: <input type='text' name='@Model.DepartmentLocation' value='@Model.DepartmentLocation}' /></label>
-        <br /><br />
-        <label>Description: <input type='text' name='@Model.DepartmentDescription'
-           value='@Model.DepartmentDescription}' /></label>
-        <br /><br />
-        <a href='/departments/'>Cancel</a>
-        <br/><br/>       
-        <button type='submit'>Update</button>
-        <br/><br/>
+        <h1>Department Details</h1>
+        <form method='post' action='/departments/edit/@Model.DepartmentId'>
+            <input type='hidden' name='@Model.DepartmentId' value='@Model.DepartmentId' />
+            <label>Name: <input type='text' name='@Model.DepartmentName' value='@Model.DepartmentName' /></label>
+            <br /><br />
+            <label>Location: <input type='text' name='@Model.DepartmentLocation' value='@Model.DepartmentLocation' /></label>
+            <br /><br />
+            <label>Description: <input type='text' name='@Model.DepartmentDescription'
+               value='@Model.DepartmentDescription' /></label>
+            <br /><br />
+            <a href='/departments/'>Cancel</a>
+            <br/><br/>       
+            <button type='submit'>Update</button>
+            <br/><br/>
         </form>
         <br /><br />
-        <form style='padding-top:0.65rem;' method='post' action='/departments/delete/{@Model.DepartmentId}'>
+        <form style='padding-top:0.65rem;' method='post' action='/departments/delete/@Model.DepartmentId'>
             <button type='submit' style='background-color:orange;color:white;'>Delete</button>
         </form>
    </div>

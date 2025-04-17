@@ -10,80 +10,26 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         {
             //get a list of sample test Departments from the repository
             var departments = DepartmentsRepository.GetDepartments();
-
-            //style for displaying departments
-            var style = "<style>.center{margin:auto; width:75%; text-align:center; border: 3px solid #222;padding:1rem;}.header{text-align:left}.table{text-align:center;}  </style>";
-
-            //table to display departments with separate header section
-            var output = $@"
-               <div class='center'>
-                    <div class='header'><h2 style='text-align:left'>Departments List</h2>
-                    <div class='header'>{message}</div>
-                    <a href='/Departments/Create'>Create</a></div>
-                    <br/>
-                    <br/>
-                    <table class='table'>
-                    <thead>
-                      <tr>
-                        <th>Department ID</th>
-                        <th>Department Name</th>
-                        <th>Department Location</th>
-                        <th>Decription</th>
-                        <th>Actions</th>
-                       </tr>
-                   </thead>
-                    {
-                        string.Join("", departments.Select(dep => $@"
-                        <tr>
-                            <td>{dep.DepartmentId}</td>
-                            <td>{dep.DepartmentName}</td>
-                            <td>{dep.DepartmentLocation}</td>
-                            <td>{dep.DepartmentDescription}</td>
-                            <td><a href='/departments/details/{dep.DepartmentId}'>Details</a></td>
-                            <td><form  style='padding-top:0.65rem;'method='post' action='/departments/delete/{dep.DepartmentId}'>
-                               <button type='submit' style='background-color:orange;color:white; '>Delete</button></form></td>
-                        </tr>"))
-                      }
-                   <tbody>
-                </div>";
-            //return the style and the table of departments to the Index View
-            return Content(style + output, "text/html");
-        }
-        //end Index (i.e. GetDepartments) //working perfectly
+            
+            return View(departments);
+        }//end Index (i.e. GetDepartments) //working perfectly
 
         [HttpGet]
         public IActionResult Details(int departmentId)
         {
-            var department = DepartmentsRepository.GetDepartmentById(departmentId);
-            if (department is null)
+            //check if departmentId is valid
+            if (departmentId <= 0)
             {
                 return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
             }
-        /*
-                    //styling for output display
-                    var style = "<style>.center{margin:auto; width:50%; text-align:center; border: 3px solid #222;padding:1rem;} </style>";
+            var department = DepartmentsRepository.GetDepartmentById(departmentId);
+            if (department is not null)
+            {
+                return View(department);
+            }
 
-                    //container for output to screen
-                    var output = $@"
-                    <div class='center'>
-                        <h1>Department: {department.DepartmentName}'s Details</h1>
-                        <form method='post' action='/departments/edit'>
-                            <input type='hidden', name='DepartmentId' value='{department.DepartmentId}'/>
-                            <label>Name: <input type='text' name='DepartmentName'                        value='{department.DepartmentName}'</label><br/><br/>
-                          <label>Location: <input type='text' name='DepartmentLocation'                        value='{department.DepartmentLocation}'</label><br/><br/>
-                              <label>Description: <input type='text' name='DepartmentDescription'
-                                value='{department.DepartmentDescription}'/></label><br/><br/>
-                    
-                            <a href='/departments/'>Cancel</a>
-                            <br/><br/>       
-                            <button type='submit'>Update</button>
-                            <br/><br/>
-                            <form  style='padding-top:0.65rem;' method='post' action='/departments/delete/{department.DepartmentId}'>
-                            <button type='submit' style='background-color:orange;color:white;'>Delete</button></form>
-                        </form>
-                    </div>";*/ //old html before Razor Views added
+            return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
 
-            return new ViewResult(department);
         }
         //end Details GetDepartmentById
 

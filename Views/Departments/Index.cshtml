@@ -1,0 +1,66 @@
+﻿@using NET_9_Business_App_MVC.Models
+@using System.Collections
+
+@model IEnumerable<Department>
+<html>
+<head>
+    <title>Departments</title>
+    <link href="~/Views/styles.css" rel="stylesheet" />
+    <style>
+        .center {
+            margin: auto;
+            width: 75%;
+            text-align: center;
+            border: 3px solid #222;
+            padding: 1rem;
+        }
+
+        .header {
+            text-align: left
+        }
+
+        .table {
+            text-align: center;
+        }
+    </style>
+</head>
+    <body>
+        <div class='center'>
+            <div class='header'><h2 style='text-align:left'>Departments List</h2>
+                <a href='/departments/create'>Create</a>
+            </div>
+            <br/>
+            <br/>
+            <table class='table'>
+                <thead>
+                          <tr>
+                            <th>Department ID</th>
+                            <th>Department Name</th>
+                            <th>Department Location</th>
+                            <th>Decription</th>
+                            <th>Actions</th>
+                           </tr>
+                       </thead>
+                <tbody>
+                       @{
+                           foreach (var department in Model)
+                            {
+                            <tr>
+                                <td>@department.DepartmentId</td>
+                                <td>@department.DepartmentName</td>
+                                <td>@department.DepartmentLocation</td>
+                                <td>@department.DepartmentDescription</td>
+                                <td><a href='/departments/details/@department.DepartmentId'>Details</a></td>
+                                <td>
+                                    <form style='padding-top:0.65rem;' method='post' action='/departments/delete/@department.DepartmentId'>
+                                        <button type='submit' style='background-color:orange;color:white; '>Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            }<!--end foreach block-->
+                       }<!--end C# code block-->
+                        </tbody><!--close table body-->
+            </table><!--close table body-->
+        </div><!--close center class-->
+    </body>
+</html>
