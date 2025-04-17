@@ -1,0 +1,13 @@
+﻿body {
+    background-color: #000000;
+    color:honeydew;
+    font-family: Arial, sans-serif;
+    font-size:20px;
+    margin: 1rem auto;
+    text-align:center;
+    padding: 20px;
+}
+h1 {
+    color: purple;
+    font-size:100pt;
+}

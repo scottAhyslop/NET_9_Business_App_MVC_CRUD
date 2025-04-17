@@ -16,21 +16,17 @@ builder.Services.AddCors(options =>
 });//end CORS policy
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
-
-
-
-
-
 app.UseRouting();
 
+#region CORS Testing Area
 //endpoints for Home and Departments controllers, CORS added, only for testing REMOVE FOR PRODUCTION
 app.UseCors();//testing only REMOVE FOR PRODUCTION 
 
 #pragma warning disable ASP0014 // Suggest using top level route registrations
-app.UseEndpoints(endpoints => 
+app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "default",
@@ -46,6 +42,9 @@ app.UseEndpoints(endpoints =>
 
 });
 #pragma warning restore ASP0014 // Suggest using top level route registrations
+
+#endregion
+
 
 
 app.Run();

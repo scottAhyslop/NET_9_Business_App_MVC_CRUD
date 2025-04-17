@@ -7,7 +7,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return Content("Welcome to Department Management");
+            return new ViewResult { ViewName = "Index" };
         }
     }
 }

@@ -21,7 +21,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         public static Department? GetDepartmentById(int id)
         {
             return Departments.FirstOrDefault(dep => dep.DepartmentId == id);
-        }
+        }//end GetDepartmentById
 
         //POST Add department
         public static void AddDepartment(Department? Department)
@@ -89,8 +89,8 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                     }//end delDep null check
                 }//end departments null check
             }//end Department null check
-            return false;//anything falls through is returned as null
+            return false;//anything falls through is returned as false
         }//end DeleteDepartment
 
     }//end DepartmentsRepository
-}//end namespace
+}//end namespace NET_9_Business_App_MVC_CRUD.Controllers

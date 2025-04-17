@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NET_9_Business_App_MVC.Models;
-using System.Runtime.Intrinsics.Arm;
 
 namespace NET_9_Business_App_MVC_CRUD.Controllers
 {
@@ -60,52 +59,60 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             {
                 return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
             }
+        /*
+                    //styling for output display
+                    var style = "<style>.center{margin:auto; width:50%; text-align:center; border: 3px solid #222;padding:1rem;} </style>";
 
-            //styling for output display
-            var style = "<style>.center{margin:auto; width:50%; text-align:center; border: 3px solid #222;padding:1rem;} </style>";
-
-            //container for output to screen
-            var output = $@"
-            <div class='center'>
-                <h1>Department: {department.DepartmentName}'s Details</h1>
-                <form method='post' action='/departments/edit'>
-                    <input type='hidden', name='DepartmentId' value='{department.DepartmentId}'/>
-                    <label>Name: <input type='text' name='DepartmentName'                        value='{department.DepartmentName}'</label><br/><br/>
-                  <label>Location: <input type='text' name='DepartmentLocation'                        value='{department.DepartmentLocation}'</label><br/><br/>
-                      <label>Description: <input type='text' name='DepartmentDescription'
-                        value='{department.DepartmentDescription}'/></label><br/><br/>
+                    //container for output to screen
+                    var output = $@"
+                    <div class='center'>
+                        <h1>Department: {department.DepartmentName}'s Details</h1>
+                        <form method='post' action='/departments/edit'>
+                            <input type='hidden', name='DepartmentId' value='{department.DepartmentId}'/>
+                            <label>Name: <input type='text' name='DepartmentName'                        value='{department.DepartmentName}'</label><br/><br/>
+                          <label>Location: <input type='text' name='DepartmentLocation'                        value='{department.DepartmentLocation}'</label><br/><br/>
+                              <label>Description: <input type='text' name='DepartmentDescription'
+                                value='{department.DepartmentDescription}'/></label><br/><br/>
                     
-                    <a href='/departments/'>Cancel</a>
-                    <br/><br/>       
-                    <button type='submit'>Update</button>
-                    <br/><br/>
-                    <form  style='padding-top:0.65rem;' method='post' action='/departments/delete/{department.DepartmentId}'>
-                    <button type='submit' style='background-color:orange;color:white;'>Delete</button></form>
-                </form>
-            </div>";
+                            <a href='/departments/'>Cancel</a>
+                            <br/><br/>       
+                            <button type='submit'>Update</button>
+                            <br/><br/>
+                            <form  style='padding-top:0.65rem;' method='post' action='/departments/delete/{department.DepartmentId}'>
+                            <button type='submit' style='background-color:orange;color:white;'>Delete</button></form>
+                        </form>
+                    </div>";*/ //old html before Razor Views added
 
-            return Content(style + output, "text/html");
+            return new ViewResult(department);
         }
         //end Details GetDepartmentById
 
         [HttpPost]
         public IActionResult Edit(Department department)
         {
-            //check on model state and if invalid, write errors to console TODO: write to log file later
-            if (!ModelState.IsValid) {
-               //return itemized list of any errors
-               return Content(FormatErrorsInHtml(), "text/html");
+            if (department is not null)
+            {
+                //check on model state and if invalid, write errors to console TODO: write to log file later
+                if (!ModelState.IsValid)
+                {
+                    //return itemized list of any errors
+                    return Content(FormatErrorsInHtml(), "text/html");
 
-            }
-            if (DepartmentsRepository.UpdateDepartment(department))
-            {
-                //if update is successful, redirect to Index (probably with a message TODO: add message)
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
-            }
+                }
+                if (DepartmentsRepository.UpdateDepartment(department))
+                {
+                    //if update is successful, redirect to Index (probably with a message TODO: add message)
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
+                }//end update department check
+            }//end department null check
+
+            //if null checks fail, return error message
+            return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
+
         }//end Edit
 
         [HttpGet]
@@ -130,17 +137,23 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         public IActionResult Create(Department department)
         {
             //check on model state and if invalid, write errors to console TODO: write to log file later
-            if (!ModelState.IsValid)
+            if (department is not null) 
             {
-                //return itemized list of any errors
-                return Content(FormatErrorsInHtml(), "text/html");
-            }
-            else
-            {
-                //if the model is valid, add the department
-                DepartmentsRepository.AddDepartment(department);
-                return RedirectToAction(nameof(Index));
-            }
+                if (!ModelState.IsValid)
+                {
+                    //return itemized list of any errors
+                    return Content(FormatErrorsInHtml(), "text/html");
+                }
+                else
+                {
+                    //if the model is valid, add the department
+                    DepartmentsRepository.AddDepartment(department);
+                    return RedirectToAction(nameof(Index));
+                }
+            }//end department null check
+
+            //if null checks fail, return error message
+            return Content("<h3 style='color:orange'>Department cannot be added</h3>", "text/html");
 
 
         }//end Create to add created department from form object
@@ -160,7 +173,6 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
-
 
         //error handler to format error messages in Html
         private string FormatErrorsInHtml()
