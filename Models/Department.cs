@@ -31,18 +31,3 @@ namespace NET_9_Business_App_MVC.Models
         }
     }
 }
-/*
- public Department()
-        {
-            
-        }
-
-        public Department(int id, string name, string? description = "")
-        {
-            this.Id = id;
-            this.Name = name;
-            this.Description = description;
-        }
- 
- 
- */

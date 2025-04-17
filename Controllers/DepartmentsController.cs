@@ -9,9 +9,13 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         [HttpGet]
         public IActionResult Index(string? message)
         {
+            //get a list of sample test Departments from the repository
             var departments = DepartmentsRepository.GetDepartments();
+
+            //style for displaying departments
             var style = "<style>.center{margin:auto; width:75%; text-align:center; border: 3px solid #222;padding:1rem;}.header{text-align:left}.table{text-align:center;}  </style>";
 
+            //table to display departments with separate header section
             var output = $@"
                <div class='center'>
                     <div class='header'><h2 style='text-align:left'>Departments List</h2>
@@ -36,17 +40,17 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                             <td>{dep.DepartmentName}</td>
                             <td>{dep.DepartmentLocation}</td>
                             <td>{dep.DepartmentDescription}</td>
-                            <td><a href='/Departments/Edit/{dep.DepartmentId}'>Edit</a></td>
-                            <td><a href='/Departments/Details/{dep.DepartmentId}'>Details</a></td>
-                            <td><form  style='padding-top:0.65rem;'method='post' action='departments/delete/{dep.DepartmentId}'>
+                            <td><a href='/departments/details/{dep.DepartmentId}'>Details</a></td>
+                            <td><form  style='padding-top:0.65rem;'method='post' action='/departments/delete/{dep.DepartmentId}'>
                                <button type='submit' style='background-color:orange;color:white; '>Delete</button></form></td>
                         </tr>"))
                       }
                    <tbody>
                 </div>";
+            //return the style and the table of departments to the Index View
             return Content(style + output, "text/html");
         }
-        //end Index (i.e. GetDepartments)
+        //end Index (i.e. GetDepartments) //working perfectly
 
         [HttpGet]
         public IActionResult Details(int departmentId)
@@ -57,14 +61,16 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
             }
 
+            //styling for output display
             var style = "<style>.center{margin:auto; width:50%; text-align:center; border: 3px solid #222;padding:1rem;} </style>";
 
-            var content = $@"
+            //container for output to screen
+            var output = $@"
             <div class='center'>
                 <h1>Department: {department.DepartmentName}'s Details</h1>
-                <form class='details' method='post' action='/departments/edit'>
-                    <input type='hidden', name='departmentId' value='{department.DepartmentId}'/>
-                    <label>Name: <input type='text' name='Name'                        value='{department.DepartmentName}'</label><br/><br/>
+                <form method='post' action='/departments/edit'>
+                    <input type='hidden', name='DepartmentId' value='{department.DepartmentId}'/>
+                    <label>Name: <input type='text' name='DepartmentName'                        value='{department.DepartmentName}'</label><br/><br/>
                   <label>Location: <input type='text' name='DepartmentLocation'                        value='{department.DepartmentLocation}'</label><br/><br/>
                       <label>Description: <input type='text' name='DepartmentDescription'
                         value='{department.DepartmentDescription}'/></label><br/><br/>
@@ -73,12 +79,12 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                     <br/><br/>       
                     <button type='submit'>Update</button>
                     <br/><br/>
-                    <form  style='padding-top:0.65rem;'method='post' action='departments/delete/{department.DepartmentId}'>
-                    <button type='submit' style='background-color:orange;color:white; '>Delete</button></form>
+                    <form  style='padding-top:0.65rem;' method='post' action='/departments/delete/{department.DepartmentId}'>
+                    <button type='submit' style='background-color:orange;color:white;'>Delete</button></form>
                 </form>
             </div>";
 
-            return Content(style+content, "text/html");
+            return Content(style + output, "text/html");
         }
         //end Details GetDepartmentById
 
@@ -107,7 +113,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         {
             var content = @"
                 <h2><b>Create a new Department</b></h2>
-                <form method='post' action='departments/Create'>
+                <form method='post' action='/Departments/Create'>
                     <label>Name:  <input type='text' name='DepartmentName'/></label><br/><br/>
                     <label>Location:  <input type='text' name='DepartmentLocation'/></label><br/><br/>
                     <label>Description:  <input type='text' name='DepartmentDescription'/></label><br/><br/>
@@ -143,7 +149,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         public IActionResult Delete(int departmentId) {
 
             var department = DepartmentsRepository.GetDepartmentById(departmentId);
-            if (department is not null)
+            if (department is null)
             {
                 ModelState.AddModelError($"{departmentId}", "Department not found");
                 return Content(FormatErrorsInHtml(),"text/html");

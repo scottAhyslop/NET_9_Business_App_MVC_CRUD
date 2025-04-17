@@ -1,15 +1,15 @@
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+var HomeTestingPolicy = "_AllowHomeConnections";//testing only REMOVE FOR PRODUCTION
 
 var builder = WebApplication.CreateBuilder(args);
 
 //add CORS policy for testing purposes, remove for production
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
+    options.AddPolicy(name: HomeTestingPolicy,
                       policy =>
                       {
                           policy.WithOrigins("http://localhost:5275",
-                              "http://localhost:5275/departments")
+                              "http://localhost:5275/Departments/{Controller}/{Id}")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                       });
@@ -20,19 +20,32 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+
+
+
+
 app.UseRouting();
 
-app.UseCors();
+//endpoints for Home and Departments controllers, CORS added, only for testing REMOVE FOR PRODUCTION
+app.UseCors();//testing only REMOVE FOR PRODUCTION 
 
-//endpoints for Home and Departments controllers, CORS added
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"   
-    ).RequireCors(MyAllowSpecificOrigins);
+#pragma warning disable ASP0014 // Suggest using top level route registrations
+app.UseEndpoints(endpoints => 
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{departmentId?}"
+        ).RequireCors(HomeTestingPolicy);
 
-app.MapControllerRoute(
-    name: "departments",
-    pattern: "{controller=Departments}/{action=Index}/{id?}"
-    ).RequireCors(MyAllowSpecificOrigins);
+    endpoints.MapControllers().RequireCors(HomeTestingPolicy);
+
+    endpoints.MapControllerRoute(
+        name: "departments",
+        pattern: "{controller=Departments}/{action=Index}/{departmentId?}"
+        ).RequireCors(HomeTestingPolicy);
+
+});
+#pragma warning restore ASP0014 // Suggest using top level route registrations
+
 
 app.Run();

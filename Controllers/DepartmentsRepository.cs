@@ -22,6 +22,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         {
             return Departments.FirstOrDefault(dep => dep.DepartmentId == id);
         }
+
         //POST Add department
         public static void AddDepartment(Department? Department)
         {
@@ -29,36 +30,67 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             {
                 int maxId = Departments.Max(dep => dep.DepartmentId);
                 Department.DepartmentId = maxId + 1;
+                Department.DepartmentName = Department.DepartmentName;
+                Department.DepartmentLocation = Department.DepartmentLocation;
+                Department.DepartmentDescription = Department.DepartmentDescription;
+                Department.DepartmentAnnualSales = Department.DepartmentAnnualSales;
+                //Add the new department to the list
                 Departments.Add(Department);
-            }
-        }
+            }//end Department null check
+        }//end AddDepartment
 
+        //PUT Update department
         public static bool UpdateDepartment(Department? Department)
         {
+            //null check for passed in Department
             if (Department is not null)
             {
-                var emp = Departments.FirstOrDefault(dep => dep.DepartmentId == Department.DepartmentId);
-                if (emp is not null)
+                //if Department is not null get a current list of departments
+                var departments = GetDepartments();
+                //null check for departments list
+                if (departments is not null) 
                 {
-                    emp.DepartmentName = Department.DepartmentName;
-                    emp.DepartmentLocation = Department.DepartmentLocation;
-                    emp.DepartmentDescription = Department.DepartmentDescription;                   
-
-                    return true;
-                }
-            }
+                    //find the department to update in departments list
+                    var updateDep = departments.FirstOrDefault(dep => dep.DepartmentId == Department.DepartmentId);
+                    if (updateDep is not null)
+                    {
+                        //Update entered properties from passed in form data
+                        updateDep.DepartmentName = Department.DepartmentName;
+                        updateDep.DepartmentLocation = Department.DepartmentLocation;
+                        updateDep.DepartmentDescription = Department.DepartmentDescription;
+                        return true;
+                    }//end updateDep null check
+                }//end departments null check
+            }//end Department null check
+            //if any of the above checks fail return false
             return false;
-        }
+        }//end UpdateDepartment
 
+        //DELETE removes selected item from list 
         public static bool DeleteDepartment(Department? Department)
         {
+            //null check for passed in Department
             if (Department is not null)
             {
-                Departments.Remove(Department);
-                return true;
-            }
+                //get a current list of departments
+                var departments = GetDepartments();
 
-            return false;
-        }
-    }
-}
+                //null check for departments list
+                if (departments is not null)
+                {
+                    //find the department to delete in departments list
+                    var delDep = departments.FirstOrDefault(dep => dep.DepartmentId == Department.DepartmentId);
+                    //make sure selected department is not null
+                    if (delDep is not null)
+                    {
+                        //remove the selected department from the list
+                        departments.Remove(delDep);
+                        return true;
+                    }//end delDep null check
+                }//end departments null check
+            }//end Department null check
+            return false;//anything falls through is returned as null
+        }//end DeleteDepartment
+
+    }//end DepartmentsRepository
+}//end namespace
