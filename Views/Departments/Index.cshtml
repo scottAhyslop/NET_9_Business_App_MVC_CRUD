@@ -43,23 +43,26 @@
                        </thead>
                 <tbody>
                        @{
-                           foreach (var department in Model)
+                         if (Model is not null)
+                        {
+                            foreach (var department in Model)
                             {
-                            <tr>
-                                <td>@department.DepartmentId</td>
-                                <td>@department.DepartmentName</td>
-                                <td>@department.DepartmentLocation</td>
-                                <td>@department.DepartmentDescription</td>
-                                <td><a href='/departments/details/@department.DepartmentId'>Details</a></td>
-                                <td>
-                                    <form style='padding-top:0.65rem;' method='post' action='/departments/delete/@department.DepartmentId'>
-                                        <button type='submit' style='background-color:orange;color:white; '>Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>@department.DepartmentId</td>
+                                    <td>@department.DepartmentName</td>
+                                    <td>@department.DepartmentLocation</td>
+                                    <td>@department.DepartmentDescription</td>
+                                    <td><a href='/departments/details/@department.DepartmentId'>Details</a></td>
+                                    <td>
+                                        <form style='padding-top:0.65rem;' method='post' action='/departments/delete/@department.DepartmentId'>
+                                            <button type='submit' style='background-color:orange;color:white; '>Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             }<!--end foreach block-->
+                        }//end Model null check
                        }<!--end C# code block-->
-                        </tbody><!--close table body-->
+                </tbody><!--close table body-->
             </table><!--close table body-->
         </div><!--close center class-->
     </body>
