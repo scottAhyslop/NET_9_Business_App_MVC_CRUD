@@ -1,0 +1,33 @@
+﻿@using NET_9_Business_App_MVC.Models
+@model List<string>
+<html xmlns="http://www.w3.org/1999/xhtml">  
+<head>  
+    <title>Error List</title>  
+</head>  
+<body>  
+    <div id="header" style="text-align:center;">  
+        <h2 style="color:orangered;text-decoration-style:wavy;">Validation or Other Errors</h2>  
+    </div><!--end header-->
+    <div id="output" style="margin-left:33%;">
+        <h3 style="color:darkorange;text-decoration-style:wavy;">Error List</h3>
+        @{
+            List<string> errorMessage = new List<string>();
+            
+            // Check if the ModelState is valid and if there are any errors in the ModelState
+            // Loop through the ModelState to collect error messages
+            if (Model is not null && Model.Count > 0)
+            {
+                <ul>
+                    @foreach (var error in Model)
+                    {
+                        <li>@error</li>
+                        errorMessage.Add(error);
+                        
+                    }
+                </ul>
+            }
+        }<!--end C# codeblock to parse through List<string> input param-->
+  
+   </div><!--end output-->
+</body>  
+</html>

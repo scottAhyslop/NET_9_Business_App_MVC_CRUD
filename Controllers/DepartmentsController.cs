@@ -20,7 +20,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             //check if departmentId is valid
             if (departmentId <= 0)
             {
-                return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
+                return View("DisplayErrors", new List<string>() { "Department not valid" });
             }
             var department = DepartmentsRepository.GetDepartmentById(departmentId);
             if (department is not null)
@@ -28,7 +28,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 return View(department);
             }
 
-            return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
+            return View("DisplayErrors", new List<string>() { "Department not valid" });
 
         }
         //end Details GetDepartmentById
@@ -42,7 +42,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 if (!ModelState.IsValid)
                 {
                     //return itemized list of any errors
-                    return Content(FormatErrorsInHtml(), "text/html");
+                    return View("DisplayErrors", GetErrors());
 
                 }
                 if (DepartmentsRepository.UpdateDepartment(department))
@@ -88,7 +88,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 if (!ModelState.IsValid)
                 {
                     //return itemized list of any errors
-                    return Content(FormatErrorsInHtml(), "text/html");
+                    return View("DisplayErrors", GetErrors());
                 }
                 else
                 {
@@ -98,8 +98,8 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 }
             }//end department null check
 
-            //if null checks fail, return error message
-            return Content("<h3 style='color:orange'>Department cannot be added</h3>", "text/html");
+            //return itemized list of any errors
+            return View("DisplayErrors", GetErrors());
 
 
         }//end Create to add created department from form object
@@ -107,21 +107,25 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         [HttpPost]
         public IActionResult Delete(int departmentId) {
 
-            var department = DepartmentsRepository.GetDepartmentById(departmentId);
-            if (department is null)
-            {
-                ModelState.AddModelError($"{departmentId}", "Department not found");
-                return Content(FormatErrorsInHtml(),"text/html");
+            if (departmentId <= 0) { 
+                var department = DepartmentsRepository.GetDepartmentById(departmentId);
+                if (department is null)
+                {
+                    ModelState.AddModelError($"{departmentId}", "Department not found");
+                    return View("DisplayErrors", GetErrors());
+                }
+                else
+                {
+                    DepartmentsRepository.DeleteDepartment(department);
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            else
-            {
-                DepartmentsRepository.DeleteDepartment(department);
-                return RedirectToAction(nameof(Index));
-            }
+            ModelState.AddModelError($"{departmentId}", "Department not valid, no Department Id found");
+            return View("DisplayErrors", GetErrors());
         }
 
-        //error handler to format error messages in Html
-        private string FormatErrorsInHtml()
+        //GetErrors method to return a list of errors for display to Error view
+        private List<string> GetErrors()
         {
             List<string> errorMessages = new List<string>();
             foreach (var value in ModelState.Values)
@@ -131,21 +135,8 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                     errorMessages.Add(error.ErrorMessage);
                 }
             }
-            string output = string.Empty;
-            if (errorMessages.Count>0)
-            {
-                //if there are any error messages, format them in an Html itemized list
-                output = $@"
-                    <ul>
-                        {string.Join("", errorMessages.Select(
-                          error => 
-                          $"<li style='color:orange;'>{error}</li>"))}
-                    </ul>    
+            return errorMessages;
+        }//end GetErrors
 
-                ";
-            }
-
-            return output;
-        }
-    }
-}
+    }//end DepartmentsController
+}//end namespace
