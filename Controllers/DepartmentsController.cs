@@ -18,7 +18,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         public IActionResult Details(int departmentId)
         {
             //check if departmentId is valid
-            if (departmentId <= 0)
+            if (departmentId == 0)
             {
                 return View("DisplayErrors", new List<string>() { "Department not valid" });
             }
@@ -28,7 +28,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 return View(department);
             }
 
-            return View("DisplayErrors", new List<string>() { "Department not valid" });
+            return View("DisplayErrors", new List<string>() { "Department not found" });
 
         }
         //end Details GetDepartmentById

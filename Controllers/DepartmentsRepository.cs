@@ -20,13 +20,10 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         //GET by Id
         public static Department? GetDepartmentById(int id)
         {
-            //check if id is valid
-            if (id !<=0)
-            {
+           
                 return Departments.FirstOrDefault(dep => dep.DepartmentId == id);
-            }
-            //if not, return null TODO: add error message
-            return null;
+          
+           
         }//end GetDepartmentById
 
         //POST Add department
