@@ -40,18 +40,18 @@
             List<string> errorMessage = new List<string>();
             
             // Check if the ModelState is valid and if there are any errors in the ModelState
-            // Loop through the ModelState to collect error messages
             if (Model is not null && Model.Count > 0)
             {
                 <ul>
+                     <!--Loop through the ModelState to collect error messages-->
                     @foreach (var error in Model)
                     {
                         <li>@error</li>
                         errorMessage.Add(error);                        
                     }
-                </ul>
+                </ul><!--end error list-->
             }
-        }<!--end C# codeblock to parse through List<string> input param-->
+        }<!--end C# codeblock to parse through List<string> input params-->
         <a href='/departments/' class="btn btn-outline-warning">Back</a>
    </div><!--end output-->
 </body>  
