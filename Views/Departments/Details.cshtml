@@ -1,7 +1,7 @@
-﻿@using NET_9_Business_App_MVC.Models
-@model Department
+﻿@model Department
 
- <div class='center'>
+<!--Details View Departments-->
+<div class='center'>
    <div class="container-fluid">
         <h2 style="color:dodgerblue;">Department Details</h2>
             <br />
@@ -36,9 +36,7 @@
                 <button type='submit' class="btn btn-outline-success">Update</button>
                 <br /><br />
                 <a href='/departments' class="btn btn-outline-warning">Cancel</a>
-                
             </form>
-     
    </div><!--end container-->
 
    <form style="padding-left:0.75rem;" method='post' action='/departments/delete/@Model.DepartmentId'>
@@ -48,11 +46,11 @@
 
 <!--TODO: text area for department description-->
 @*  <label for="DepartmentDescription" class="form-label">Department Description</label>
-                        <textarea 
-                            asp-for="@Model.DepartmentDescription"
-                            data-val="true"
-                              data-val-maxlength="The field MainText must be a string or array type with a maximum length of &#x27;300&#x27;."
-                              data-val-maxlength-max="300"
-                              class="form-control"
-                              id="DepartmentDescription" rows="3">
-                        </textarea> *@
+  <textarea 
+  asp-for="@Model.DepartmentDescription"
+  data-val="true"
+  data-val-maxlength="The field MainText must be a string or array type with a maximum length of &#x27;300&#x27;."
+  data-val-maxlength-max="300"
+  class="form-control"
+  id="DepartmentDescription" rows="3">
+  </textarea> *@
