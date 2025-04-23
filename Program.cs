@@ -9,7 +9,7 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("http://localhost:5275",
-                              "http://localhost:5275/Departments/{Controller}/{Id}")
+                              "http://localhost:5275/Departments/*/*")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                       });
@@ -28,12 +28,12 @@ app.UseCors();//testing only REMOVE FOR PRODUCTION
 #pragma warning disable ASP0014 // Suggest using top level route registrations
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapControllers().RequireCors(HomeTestingPolicy);
+
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{departmentId?}"
         ).RequireCors(HomeTestingPolicy);
-
-    endpoints.MapControllers().RequireCors(HomeTestingPolicy);
 
     endpoints.MapControllerRoute(
         name: "departments",
@@ -44,7 +44,5 @@ app.UseEndpoints(endpoints =>
 #pragma warning restore ASP0014 // Suggest using top level route registrations
 
 #endregion
-
-
 
 app.Run();

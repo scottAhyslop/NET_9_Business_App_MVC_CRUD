@@ -33,56 +33,31 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         }
         //end Details GetDepartmentById
 
-        [HttpPost]
+        [HttpPut]
         public IActionResult Edit(Department department)
         {
-            if (department is not null)
-            {
-                //check on model state and if invalid, write errors to console TODO: write to log file later
-                if (!ModelState.IsValid)
-                {
-                    //return itemized list of any errors
-                    return View("DisplayErrors", GetErrors());
+          
+          if (!ModelState.IsValid)
+          {
+            //return itemized list of any errors
+            return View("DisplayErrors", GetErrors());
 
-                }
-                if (DepartmentsRepository.UpdateDepartment(department))
-                {
-                    //if update is successful, redirect to Index (probably with a message TODO: add message)
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
-                }//end update department check
-            }//end department null check
-
-            //if null checks fail, return error message
-            return Content("<h3 style='color:orange'>Department not found</h3>", "text/html");
-
+          }
+          DepartmentsRepository.UpdateDepartment(department);
+          //if update is successful, redirect to Index (probably with a message TODO: add message)
+          return RedirectToAction(nameof(Index));
         }//end Edit
 
         [HttpGet]
         public IActionResult Create() 
         {
-            var content = @"
-                <h2><b>Create a new Department</b></h2>
-                <form method='post' action='/Departments/Create'>
-                    <label>Name:  <input type='text' name='DepartmentName'/></label><br/><br/>
-                    <label>Location:  <input type='text' name='DepartmentLocation'/></label><br/><br/>
-                    <label>Description:  <input type='text' name='DepartmentDescription'/></label><br/><br/>
-                    <label>Annual Sales:  <input type='text' name='DepartmentAnnualSales'/></label><br/><br/>
-                    <button type='submit'>Create</button>
-                    <br/><br/>
-                    <a href='/departments/'>Cancel</a>
-                </form>
-            ";        
-            return Content(content, "text/html");
+            return View(new Department());
         }//end form for Create
         
         [HttpPost]
         public IActionResult Create(Department department)
         {
-            //check on model state and if invalid, write errors to console TODO: write to log file later
+            //check on model state and if invalid, write errors to console TODO: write to log file upon creation
             if (department is not null) 
             {
                 if (!ModelState.IsValid)
@@ -107,20 +82,19 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         [HttpPost]
         public IActionResult Delete(int departmentId) {
 
-            if (departmentId <= 0) { 
                 var department = DepartmentsRepository.GetDepartmentById(departmentId);
                 if (department is null)
                 {
                     ModelState.AddModelError($"{departmentId}", "Department not found");
                     return View("DisplayErrors", GetErrors());
                 }
-                else
+                else if (department is not null)
                 {
                     DepartmentsRepository.DeleteDepartment(department);
                     return RedirectToAction(nameof(Index));
                 }
-            }
-            ModelState.AddModelError($"{departmentId}", "Department not valid, no Department Id found");
+            //fall through if validation and null checks fail
+            ModelState.AddModelError($"{departmentId}", "Department not valid, no Department Id found");//add an error, send it to the screen
             return View("DisplayErrors", GetErrors());
         }
 

@@ -20,17 +20,12 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         //GET by Id
         public static Department? GetDepartmentById(int id)
         {
-           
                 return Departments.FirstOrDefault(dep => dep.DepartmentId == id);
-          
-           
         }//end GetDepartmentById
 
         //POST Add department
         public static void AddDepartment(Department? department)
         {
-            if (department is not null)
-            {
                 int maxId = Departments.Max(dep => dep.DepartmentId);
                 department.DepartmentId = maxId + 1;
                 department.DepartmentName = department.DepartmentName;
@@ -39,61 +34,32 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 department.DepartmentAnnualSales = department.DepartmentAnnualSales;
                 //Add the new department to the list
                 Departments.Add(department);
-            }//end Department null check
         }//end AddDepartment
 
         //PUT Update department
         public static bool UpdateDepartment(Department? department)
         {
-            //null check for passed in Department
-            if (department is not null)
-            {
-                //if Department is not null get a current list of departments
+           
                 var departments = GetDepartments();
-                //null check for departments list
-                if (departments is not null) 
-                {
-                    //find the department to update in departments list
-                    var updateDep = departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
-                    if (updateDep is not null)
-                    {
-                        //Update entered properties from passed in form data
-                        updateDep.DepartmentName = department.DepartmentName;
-                        updateDep.DepartmentLocation = department.DepartmentLocation;
-                        updateDep.DepartmentDescription = department.DepartmentDescription;
-                        return true;
-                    }//end updateDep null check
-                }//end departments null check
-            }//end Department null check
-            //if any of the above checks fail return false
-            return false;
-        }//end UpdateDepartment
-
+                //find the department to update in departments list
+                var updateDep = departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
+                //Update entered properties from passed in form data
+                updateDep.DepartmentName = department.DepartmentName;
+                updateDep.DepartmentLocation = department.DepartmentLocation;
+                updateDep.DepartmentDescription = department.DepartmentDescription;
+                return true;
+        }//end updateDep null check
+              
         //DELETE removes selected item from list 
         public static bool DeleteDepartment(Department? department)
         {
-            //null check for passed in Department
-            if (department is not null)
-            {
-                //get a current list of departments
-                var departments = GetDepartments();
-
-                //null check for departments list
-                if (departments is not null)
-                {
-                    //find the department to delete in departments list
-                    var delDep = departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
-                    //make sure selected department is not null
-                    if (delDep is not null)
-                    {
-                        //remove the selected department from the list
-                        departments.Remove(delDep);
-                        return true;
-                    }//end delDep null check
-                }//end departments null check
-            }//end department null check
-            return false;//anything falls through is returned as false
-        }//end DeleteDepartment
+           var departments = GetDepartments();
+           //find the department to delete in departments list
+           var delDep = departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
+           //remove the selected department from the list
+           departments.Remove(delDep);
+            return true;
+         }//end DeleteDepartment
 
     }//end DepartmentsRepository
 

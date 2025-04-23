@@ -3,13 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml">  
 <head>  
     <title>Error List</title>  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <style>
+        body {
+            padding: 1.5rem 0;
+        }
+
+        .center {
+            margin: auto;
+            width: 90%;
+            text-align: center;
+            border: 3px solid #222;
+            padding: 1rem;
+        }
+        #output{
+            margin-left: 33%;
+            text-align: left;
+        }
+        h2 {
+            color: orangered;
+            text-decoration-style: wavy;
+        }
+        h3 {
+            color: darkorange;
+            text-decoration-style: wavy;
+        }
+    </style>
 </head>  
 <body>  
     <div id="header" style="text-align:center;">  
-        <h2 style="color:orangered;text-decoration-style:wavy;">Validation or Other Errors</h2>  
+        <h2>Validation or Other Errors</h2>  
     </div><!--end header-->
-    <div id="output" style="margin-left:33%;">
-        <h3 style="color:darkorange;text-decoration-style:wavy;">Error List</h3>
+    <div id="output" class="container-fluid">
+        <h3>Error List</h3>
         @{
             List<string> errorMessage = new List<string>();
             
@@ -21,13 +47,12 @@
                     @foreach (var error in Model)
                     {
                         <li>@error</li>
-                        errorMessage.Add(error);
-                        
+                        errorMessage.Add(error);                        
                     }
                 </ul>
             }
         }<!--end C# codeblock to parse through List<string> input param-->
-  
+        <a href='/departments/' class="btn btn-outline-warning">Back</a>
    </div><!--end output-->
 </body>  
 </html>
