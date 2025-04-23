@@ -1,9 +1,11 @@
 ﻿@model Department
-
-<!--Create View Departments-->
 @{
     ViewBag.Title = "Create a Department";
 }
+@section title_section {
+    <h2>Create Department</h2>
+}
+<!--Create View Departments-->
 <style>
 
     h2 {
@@ -12,44 +14,42 @@
 </style>
 <div class="container-fluid">
         <div class="center">
-            <h2>Create Department</h2>
-            <br />
-        <form method='post' action='/departments/create'>
-            <div class="row mb-3">
-                <div class="col-sm-2">
-                  <label class="col-form-label">Name:  </label>
+           <form method='post' action='/departments/create'>
+                <div class="row mb-3">
+                    <div class="col-sm-2">
+                      <label class="col-form-label">Name:  </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type='text' class="form-control" name='DepartmentName' value="@Model.DepartmentName" />
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <input type='text' class="form-control" name='DepartmentName' value="@Model.DepartmentName" />
+                <div class="row mb-3">
+                    <div class="col-sm-2">
+                        <label class="col-form-label">Location:  </label>
+                    </div>
+                    <div class="col-sm-6">
+                       <input type='text' class="form-control" name='DepartmentLocation' value="@Model.DepartmentLocation" />
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-2">
-                    <label class="col-form-label">Location:  </label>
+                <div class="row mb-3">
+                    <div class="col-sm-2">
+                        <label class="col-form-label">Description: </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type='text' class="form-control" name='DepartmentDescription' value="@Model.DepartmentDescription" />
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                   <input type='text' class="form-control" name='DepartmentLocation' value="@Model.DepartmentLocation" />
+                <div class="row mb-3">
+                    <div class="col-sm-2">
+                        <label class="col-form-label">Annual Sales:  </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type='text' class="form-control" name='DepartmentAnnualSales' value="@Model.DepartmentAnnualSales" />
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-2">
-                    <label class="col-form-label">Description: </label>
-                </div>
-                <div class="col-sm-6">
-                    <input type='text' class="form-control" name='DepartmentDescription' value="@Model.DepartmentDescription" />
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-2">
-                    <label class="col-form-label">Annual Sales:  </label>
-                </div>
-                <div class="col-sm-6">
-                    <input type='text' class="form-control" name='DepartmentAnnualSales' value="@Model.DepartmentAnnualSales" />
-                </div>
-            </div>
-                <button type='submit' class="btn btn-sm btn-outline-success">Create</button>
+                    <button type='submit' class="btn btn-sm btn-outline-success">Create</button>
            </form>
-            
+           <!--not sure?  back to Home wid ya!-->
             <a class="btn btn-outline-warning btn-sm" href='/departments/'>Cancel</a>
         </div><!--end class center-->
     </div>

@@ -42,6 +42,9 @@
         </nav>
     </div>
         <div class="container" style="padding:0.75rem 0 0 0;">
+
+        <div style="padding-left:0.75rem;"><p>@RenderSection("title_section", false)</p></div>
+        <br/>   
             @RenderBody()<!--Main Html holder for Views-->
         </div>
     <!--b.s. js import (last cos it takes longest;)-->

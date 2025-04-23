@@ -1,12 +1,13 @@
 ﻿@model Department
 <!--Edit View Departments-->
 @{
-    ViewBag.Title = "Departments Edit";
+    ViewBag.Title = "Department Edit";
+}
+@section title_section {
+    <h2>Department Details</h2>
 }
 <div class='center'>
     <div class="container-fluid">
-            <h1>Department Details</h1>
-            <br />
             <form method='post' action='/departments/edit'>
                 <input type='hidden' name='DepartmentId' value='@Model.DepartmentId' />
                 <div class="row mb-3" style="text-align:left;">
