@@ -26,6 +26,14 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         //POST Add department
         public static void AddDepartment(Department? department)
         {
+            //Check if the department is null
+            if (department is null)
+            {
+                //If it is, return
+                return;
+            }
+            else
+            {
                 int maxId = Departments.Max(dep => dep.DepartmentId);
                 department.DepartmentId = maxId + 1;
                 department.DepartmentName = department.DepartmentName;
@@ -34,10 +42,11 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 department.DepartmentAnnualSales = department.DepartmentAnnualSales;
                 //Add the new department to the list
                 Departments.Add(department);
+            }
         }
         //end AddDepartment
 
-        //PUT Update department
+        //POST Update department
         public static bool UpdateDepartment(Department? department)
         {
             if (department is not null)
@@ -59,13 +68,29 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         //DELETE removes selected item from list 
         public static bool DeleteDepartment(Department? department)
         {
-           var departments = GetDepartments();
-           //find the department to delete in departments list
-           var delDep = departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
-           //remove the selected department from the list
-           departments.Remove(delDep);
-            return true;
-         }
+            if (department is not null) 
+            {
+                //find the department to delete in departments list
+                var departments = GetDepartments();
+                if (departments is not null)
+                {
+                    var delDep = departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
+                    if (delDep is not null)
+                    {
+                        //remove the department from the list
+                        departments.Remove(delDep);
+                        return true;
+                    }
+                    else
+                    {
+                        //if the department is not found, return false
+                        return false;
+                    }//end delDep null check
+                }//end departments null check
+            }//end department null check
+            //if the department is null, return false
+            return false;
+        }
         //end DeleteDepartment
 
     }//end DepartmentsRepository

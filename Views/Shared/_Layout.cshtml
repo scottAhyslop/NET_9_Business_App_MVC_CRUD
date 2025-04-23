@@ -12,7 +12,36 @@
     <!--custom CSS import-->
     <link href="~/css/styles.css" rel="stylesheet" />
     </head>
-    <body>
-        @RenderBody()<!--Main Html holder for Views-->    
+<body style="background-color:#262727; color:cornsilk;">
+        <div id="CorpoNavBar" style="width:100%;" class="container px-0">
+            <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+            <!-- Navbar content -->
+            <nav class="navbar navbar-expand-lg bg-body-tertiary px-2">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">Corporation HQ</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#corpNav" aria-controls="corpNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="corpNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/home/index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="departments/index">Departments</a>
+                            </li>
+                           @*  <li class="nav-item">
+                                <a class="nav-link" href="#">Pricing</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                            </li> *@
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </nav>
+        @RenderBody()<!--Main Html holder for Views-->
+    </div>
     </body>
 </html>
