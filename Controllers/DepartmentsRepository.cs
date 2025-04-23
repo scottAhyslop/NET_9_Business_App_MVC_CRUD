@@ -34,22 +34,28 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 department.DepartmentAnnualSales = department.DepartmentAnnualSales;
                 //Add the new department to the list
                 Departments.Add(department);
-        }//end AddDepartment
+        }
+        //end AddDepartment
 
         //PUT Update department
         public static bool UpdateDepartment(Department? department)
         {
-           
-                var departments = GetDepartments();
-                //find the department to update in departments list
-                var updateDep = departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
-                //Update entered properties from passed in form data
-                updateDep.DepartmentName = department.DepartmentName;
-                updateDep.DepartmentLocation = department.DepartmentLocation;
-                updateDep.DepartmentDescription = department.DepartmentDescription;
+            if (department is not null)
+            {
+                var depSelect = Departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
+                if (depSelect is not null)
+                {
+                    depSelect.DepartmentName = department.DepartmentName;
+                    depSelect.DepartmentLocation = department.DepartmentLocation;
+                    depSelect.DepartmentDescription = department.DepartmentDescription;
+                    depSelect.DepartmentAnnualSales = department.DepartmentAnnualSales;
+                }//end depSelect null check
                 return true;
-        }//end updateDep null check
-              
+            }//end department null check
+            return false;
+        }
+        //end pdateDepartment
+
         //DELETE removes selected item from list 
         public static bool DeleteDepartment(Department? department)
         {
@@ -59,7 +65,8 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
            //remove the selected department from the list
            departments.Remove(delDep);
             return true;
-         }//end DeleteDepartment
+         }
+        //end DeleteDepartment
 
     }//end DepartmentsRepository
 

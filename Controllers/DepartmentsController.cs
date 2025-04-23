@@ -18,22 +18,25 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         public IActionResult Details(int departmentId)
         {
             //check if departmentId is valid
-            if (departmentId == 0)
+           
+            var department = DepartmentsRepository.GetDepartmentById(departmentId);
+            if (department is null)
             {
                 return View("DisplayErrors", new List<string>() { "Department not valid" });
             }
-            var department = DepartmentsRepository.GetDepartmentById(departmentId);
-            if (department is not null)
+            else if (department is not null)
             {
                 return View(department);
             }
 
             return View("DisplayErrors", new List<string>() { "Department not found" });
 
+            /* return View("DisplayErrors", new List<string>() { "Department not found" });*/
+
         }
         //end Details GetDepartmentById
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult Edit(Department department)
         {
           

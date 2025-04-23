@@ -12,8 +12,9 @@
            <div class="container-fluid">
             <h1>Department Details</h1>
             <br />
-            <form method='post' action='/departments/edit'>
+            <form method='post' action='/departments/edit/@Model.DepartmentId'>
                 <input type='hidden' name='DepartmentId' value='@Model.DepartmentId' />
+
                 <div class="row mb-3" style="text-align:left;">
                     <div class="col-sm-2">
                         <label class="col-form-label">Name: </label>
@@ -37,12 +38,18 @@
                     <div class=" col-sm-10">
                         <input type='text' name='DepartmentDescription' value='@Model.DepartmentDescription' class="form-control" />
                     </div>
-                </div>
+                </div> 
                 <button type='submit' class="btn btn-outline-success">Update</button>
                 <br /><br />
                 <a href='/departments' class="btn btn-outline-warning">Cancel</a>
                 <br />
             </form>
+           @*  <form method="post" action="/departments/edit/@Model.DepartmentId">
+                <button type='submit' class="btn btn-outline-success">Update</button>
+                <br /><br />
+                <a href='/departments' class="btn btn-outline-warning">Cancel</a>
+                <br />
+            </form> *@
         </div><!--end container-->
           <form style='padding-top:0.65rem;' method='post' action='/departments/delete/@Model.DepartmentId'>
                 <button type='submit' class="btn btn-outline-danger">Delete</button>
