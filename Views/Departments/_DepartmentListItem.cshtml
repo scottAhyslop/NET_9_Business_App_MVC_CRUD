@@ -1,0 +1,15 @@
+﻿@model Department
+
+
+@if (Model is not null)
+    {
+        <tr>
+            <td>@Model.DepartmentId</td>
+            <td>@Model.DepartmentName</td>
+            <td>@Model.DepartmentLocation</td>
+            <td>@Model.DepartmentDescription</td>
+            <td>@Model.DepartmentAnnualSales</td>
+            <td><a class="btn btn-outline-primary btn-sm" href='/departments/details/@Model.DepartmentId'>Edit</a></td>
+            
+        </tr>
+    }

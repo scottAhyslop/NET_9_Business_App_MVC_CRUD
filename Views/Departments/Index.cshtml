@@ -1,45 +1,35 @@
 ﻿@model IEnumerable<Department>
+
 @{
     ViewBag.Title = "Departments Home";
 }
+
 @section title_section {
     <h2>Departments</h2>
 }
 <!--Index View Departments-->
 <div class="center">
   <div class='container'>
-     <div class='header' style="padding-bottom:0.75rem;">
-                       
+        <div class='header' style="padding-bottom:0.75rem;">
             <a class="btn btn-outline-success btn-sm" href='/departments/create'>Create</a>
-            </div>
-            
-        <table class='table-dark table-responsive-md table-dark-striped' style="text-align:center;" >
-                <thead>
-                          <tr>
-                            <th> Department ID </th>
-                            <th> Department Name </th>
-                            <th> Department Location </th>
-                            <th> Department Decription </th>
-                            <th colspan="2">Actions </th>
-                           </tr>
-                       </thead>                       
-                <tbody>
-                       @{
-                         if (Model is not null)
-                        {
-                            foreach (var department in Model)
-                            {
-                                <tr>
-                                    <td>@department.DepartmentId</td>
-                                    <td>@department.DepartmentName</td>
-                                    <td>@department.DepartmentLocation</td>
-                                    <td>@department.DepartmentDescription</td>
-                                    <td><a class="btn btn-outline-primary btn-sm" href='/departments/details/@department.DepartmentId'>Edit</a></td>
-                                </tr>
-                            }<!--end foreach block-->
-                        }//end Model null check
-                       }<!--end C# code block-->
-                </tbody><!--close table body-->
-            </table><!--close table body-->
-     </div><!--close container-->
+        </div>
+        @if (Model is not null)
+        {
+            <table class="table-dark">
+                <thead style="text-align:center;">
+                    <tr>
+                        <th>Department Id</th>
+                        <th>Department Name</th>
+                        <th>Department Location</th>
+                        <th>Department Description</th>
+                        <th>Department Annual Sales</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align:center;">
+                    @await Html.PartialAsync("_DepartmentList", @Model)
+                </tbody>
+            </table>
+        }
+  </div><!--close container-->
 </div><!--close center class-->

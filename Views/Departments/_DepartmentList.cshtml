@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Department>
+
+@{
+    
+        if (Model is not null)
+        {
+            foreach (var department in Model)
+            {
+                @await Html.PartialAsync("_DepartmentListItem", department)
+            }
+            <!--end foreach block-->
+        }//end Model null check
+    
+    <!--end C# code block-->
+}
