@@ -11,43 +11,17 @@
         <!--custom CSS import-->
         <link href="~/css/styles.css" rel="stylesheet" />
     </head>
+
 <body style="background-color:#262727; color:cornsilk;">
-        <div id="CorpoNavBar" style="width:100%;" class="container ">
-            <nav class="navbar bg-dark border-bottom border-body si" data-bs-theme="dark">
-            <!-- Navbar content -->
-            <nav class="navbar navbar-expand-lg bg-body-tertiary px-2">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/">Corporation HQ</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#corpNav" aria-controls="corpNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="corpNav">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="/">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/departments">Departments</a>
-                            </li>
-                           @*  <li class="nav-item">
-                                <a class="nav-link" href="#">Pricing</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                            </li> *@
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </nav>
-    </div>
-        <div class="container" style="padding:0.75rem 0 0 0;">
+    @await Html.PartialAsync("_Navbar")<!--Navbar for _Layout.cshtml-->
+
+    <div class="container" style="padding:0.75rem 0 0 0;">
 
         <div style="padding-left:0.75rem;"><p>@RenderSection("title_section", false)</p></div>
-        <br/>   
-            @RenderBody()<!--Main Html holder for Views-->
-        </div>
+        <br />
+        @RenderBody()<!--Main Html holder for Views-->
+    </div><!--end wrapper container-->
     <!--b.s. js import (last cos it takes longest;)-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script><!--javascript import-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script><!--end javascript import-->
     </body>
 </html>
