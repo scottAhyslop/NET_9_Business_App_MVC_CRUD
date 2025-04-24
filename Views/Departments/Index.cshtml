@@ -9,10 +9,10 @@
     <h2>Departments</h2>
 }
 <!--Search Bar partial View-->
-<div style="padding: 0 0.75rem 0.75rem 0.75rem;"><!--TODO: class this and move to styles.css-->
+<div style="padding: 0 0.75rem 1.5rem 0.75rem;"><!--TODO: class this and move to styles.css-->
     @await Html.PartialAsync("_SearchBar", Model)
 </div>
-
+<br />
 <!--Index View Departments-->
 <div class="center">
   <div class='container'>
@@ -43,3 +43,15 @@
         }<!--end Model null check-->
   </div><!--close container-->
 </div><!--close center class-->
+<!--End of Index View Departments-->
+
+<!--script section for Search Bar functionality-->
+<script>
+
+    document.querySelector("#search-button").addEventListener("click", () =>
+    {
+      var filter = document.querySelector("#search-filter").value;
+      alert(filter);    
+    }
+    );
+</script>
