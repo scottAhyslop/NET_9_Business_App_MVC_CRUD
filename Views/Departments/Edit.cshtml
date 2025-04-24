@@ -2,48 +2,23 @@
 <!--Edit View Departments-->
 @{
     ViewBag.Title = "Department Edit";
+    ViewBag.Action = "edit";
 }
 @section title_section {
     <h2>Department Details</h2>
 }
 <div class='center'>
     <div class="container-fluid">
-            <form method='post' action='/departments/edit'>
-                <input type='hidden' name='DepartmentId' value='@Model.DepartmentId' />
-                <div class="row mb-3" style="text-align:left;">
-                    <div class="col-sm-2">
-                        <label class="col-form-label">Name: </label>
-                    </div>
-                    <div class=" col-sm-6">
-                        <input type='text' name='DepartmentName' value='@Model.DepartmentName' class="form-control" />
-                    </div>
-                </div>
-                <div class="row mb-3" style="text-align:left;">
-                    <div class="col-sm-2">
-                        <label class="col-form-label">Location: </label>
-                    </div>
-                    <div class=" col-sm-6">
-                        <input type='text' name='DepartmentLocation' value='@Model.DepartmentLocation' class="form-control" />
-                    </div>
-                </div>
-                <div class="row mb-3" style="text-align:left;">
-                    <div class="col-sm-2">
-                        <label class="col-form-label">Description: </label>
-                    </div>
-                    <div class=" col-sm-10">
-                        <input type='text' name='DepartmentDescription' value='@Model.DepartmentDescription' class="form-control" />
-                    </div>
-                </div>
-                <button type='submit' class="btn btn-outline-success">Update</button>
-            </form>
-            
-            <form method='post' action='/departments'>
-                <a href='/departments/' class="btn btn-outline-warning">Cancel</a>
-                 <br />
-            </form>
-            <form style='padding-top:0.65rem;' method='post' action='/departments/delete/@Model.DepartmentId'>
-                <button type='submit' class="btn btn-outline-danger">Delete</button>
-            </form>
+        <!--main Form body-->
+        <form method='post' action='/departments/edit/@Model.DepartmentId'>
+
+            <!--inject Form body-->
+            @await Html.PartialAsync("_DetailsForm", @Model)
+
+            <!--button to Create Department-->
+            <button type='submit' class="btn btn-outline-success">Create</button>
+
+        </form><!--end main Form body-->
         
     </div><!--end container-->
 </div><!--end center-->

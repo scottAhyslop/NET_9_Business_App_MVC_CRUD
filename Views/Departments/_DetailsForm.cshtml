@@ -1,0 +1,59 @@
+﻿@model Department
+<!--partial View for Form-->
+
+<!--main Form body-->
+<form method='post' action='/departments/@ViewBag.Action'>
+
+    @{
+        if (ViewBag.Action == "edit")
+        {
+            <!--hidden field to for DepartmentId in Edit View-->
+            <input type='hidden' name='DepartmentId' value='@Model.DepartmentId' />
+        }//if not edit, then the hideen field is not needed
+    }
+
+    <!--main Form area in b.s. rows and cols-->
+    
+    <!--Department Name-->
+    <div class="row mb-3" style="text-align:left;">
+        <div class="col-sm-2">
+            <label class="col-form-label">Name: </label>
+        </div>
+        <div class=" col-sm-6">
+            <input type='text' name='DepartmentName' value='@Model.DepartmentName' class="form-control" />
+        </div>
+    </div>
+
+    <!--Department Location-->
+    <div class="row mb-3" style="text-align:left;">
+        <div class="col-sm-2">
+            <label class="col-form-label">Location: </label>
+        </div>
+        <div class=" col-sm-6">
+            <input type='text' name='DepartmentLocation' value='@Model.DepartmentLocation' class="form-control" />
+        </div>
+    </div>
+
+    <!--Department Description-->
+    <div class="row mb-3" style="text-align:left;">
+        <div class="col-sm-2">
+            <label class="col-form-label">Description: </label>
+        </div>
+        <div class=" col-sm-6">
+            <input type='text' name='DepartmentDescription' value='@Model.DepartmentDescription' class="form-control" />
+        </div>
+    </div>
+
+    <!--Department Annual Sales-->
+    <div class="row mb-3" style="text-align:left;">
+        <div class="col-sm-2">
+            <label class="col-form-label">Department Annual Sales: </label>
+        </div>
+        <div class=" col-sm-6">
+            <input type='text' name='DepartmentAnnualSales' value='@Model.DepartmentAnnualSales' class="form-control" />
+        </div>
+    </div>
+    
+    <button type='submit' class="btn btn-outline-success">Save</button>
+</form><!--end main Form body-->
+

@@ -1,9 +1,10 @@
 ﻿@model Department
 @{
     ViewBag.Title = "Create a Department";
+    ViewBag.Action = "create";
 }
 @section title_section {
-    <h2>Create Department</h2>
+    <h2 style="color:green;">Create Department</h2>
 }
 <!--Create View Departments-->
 <style>
@@ -14,43 +15,17 @@
 </style>
 <div class="container-fluid">
         <div class="center">
-           <form method='post' action='/departments/create'>
-                <div class="row mb-3">
-                    <div class="col-sm-2">
-                      <label class="col-form-label">Name:  </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <input type='text' class="form-control" name='DepartmentName' value="@Model.DepartmentName" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-sm-2">
-                        <label class="col-form-label">Location:  </label>
-                    </div>
-                    <div class="col-sm-6">
-                       <input type='text' class="form-control" name='DepartmentLocation' value="@Model.DepartmentLocation" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-sm-2">
-                        <label class="col-form-label">Description: </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <input type='text' class="form-control" name='DepartmentDescription' value="@Model.DepartmentDescription" />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-sm-2">
-                        <label class="col-form-label">Annual Sales:  </label>
-                    </div>
-                    <div class="col-sm-6">
-                        <input type='text' class="form-control" name='DepartmentAnnualSales' value="@Model.DepartmentAnnualSales" />
-                    </div>
-                </div>
-                    <button type='submit' class="btn btn-sm btn-outline-success">Create</button>
-           </form>
-           <!--not sure?  back to Home wid ya!-->
-            <a class="btn btn-outline-warning btn-sm" href='/departments/'>Cancel</a>
+        <!--main Form body-->
+            
+        <!--inject Form body-->
+            @await Html.PartialAsync("_DetailsForm", @Model)
+
+        <!--Cancel button to /departments-->
+        <form method='get' action='/departments'>
+            <button type='submit' class="btn btn-outline-primary btn-sm">Cancel</button>
+        </form>
+
+           
         </div><!--end class center-->
     </div>
 <!--end container-->
