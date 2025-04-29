@@ -1,18 +1,23 @@
-﻿@model IEnumerable<Department>
+﻿
 
 <!--Customizable View <title> tag-->
 @{
     ViewBag.Title = "Departments Home";
 }
-<!--View Title-->
+
+<!--View Page Title-->
 @section title_section {
     <h2>Departments</h2>
 }
+<!--End of View Page Title-->
+
 <!--Search Bar partial View-->
-<div style="padding: 0 0.75rem 1.5rem 0.75rem;"><!--TODO: class this and move to styles.css-->
-    @await Html.PartialAsync("_SearchBar", Model)
+<div id="_SearchBar">
+    @await Html.PartialAsync("_SearchBar")
 </div>
+<!--end Search Bar -->
 <br />
+
 <!--Index View Departments-->
 <div class="center">
   <div class='container'>
@@ -22,7 +27,8 @@
         @if (Model is not null)//null check of the model
         {
             <!--Table section for display of Departments data-->
-            <table class="table-dark"><!--TODO: Change this to a dl, dd, dt set instead of table for better accessibility-->
+            <table class="table-dark" >
+                <!--TODO: Change this to a dl, dd, dt set instead of table for better accessibility-->
                 <!--Table Head-->
                 <thead style="text-align:center;">
                     <tr>

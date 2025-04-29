@@ -9,9 +9,9 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         public IActionResult Index(string? message)
         {
             //get a list of sample test Departments from the repository
-            var departments = DepartmentsRepository.GetDepartments();
+            //var departments = DepartmentsRepository.GetDepartments();
             
-            return View(departments);
+            return View();
         }//end Index (i.e. GetDepartments) //working perfectly
 
         [HttpGet]

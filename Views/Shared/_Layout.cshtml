@@ -17,13 +17,12 @@
 <body style="background-color:#262727; color:cornsilk;">
 
     @await Html.PartialAsync("_Navbar")<!--Navbar for _Layout.cshtml-->
-
-    <div class="container">
-
-        <div style="padding-left:0.75rem;"><p>@RenderSection("title_section", false)</p></div>
-        @RenderBody()<!--Main Html holder for Views-->
-    </div><!--end wrapper container-->
-
+    <div class="center">
+        <div class="container container-fluid">
+            <div style="padding-left:0.75rem;"><p>@RenderSection("title_section", false)</p></div>
+            @RenderBody()<!--Main Html holder for Views-->
+        </div><!--end wrapper container-->
+    </div>  
     <!--b.s. js import (last cos it takes longest;)-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script><!--end javascript import-->
     </body>
