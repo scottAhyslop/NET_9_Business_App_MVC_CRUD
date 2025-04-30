@@ -15,7 +15,16 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         };
 
         //GET
-        public static List<Department> GetDepartments() => _departments;
+        public static List<Department> GetDepartments(string? filter = null) 
+        {
+            if(string.IsNullOrWhiteSpace(filter)) return _departments;
+            else
+            {
+                //Filter the departments based on the filter string
+                return _departments.Where(dep => dep.DepartmentName?.Contains(filter, StringComparison.OrdinalIgnoreCase) == true).ToList();
+            }
+
+        }
 
         //GET by Id
         public static Department? GetDepartmentById(int id)

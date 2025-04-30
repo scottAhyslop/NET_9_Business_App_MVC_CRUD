@@ -38,7 +38,7 @@
                     @* <!--@await Html.PartialAsync("_DepartmentList")--> *@
                 
                     <!--ViewComponent method-->
-                    @await Component.InvokeAsync("DepartmentList")
+                    @await Component.InvokeAsync("DepartmentList", new {filter="guitars"})
 
                 </tbody>
             </table><!--end table-->
