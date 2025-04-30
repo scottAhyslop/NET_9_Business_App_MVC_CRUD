@@ -1,7 +1,7 @@
 ﻿@model List<Department>
 
 @{
-    ViewBag.Title = "Departments Edit";
+    ViewBag.Title = "Departments List";
     ViewBag.Action = "edit";
 }
 @section title_section {
@@ -34,17 +34,9 @@
                 </thead>
                 <!--Table Body-->
                 <tbody id="department-list" style="text-align:center;">
-                    @foreach (var department in Model)
-                    {
-                        <tr>
-                            <td>@department.DepartmentId</td>
-                            <td>@department.DepartmentName</td>
-                            <td>@department.DepartmentLocation</td>
-                            <td>@department.DepartmentDescription</td>
-                            <td>@department.DepartmentAnnualSales</td>
-                            <td><a class="btn btn-outline-primary btn-sm" href="/departments/details/@department.DepartmentId" style="margin-top:0.75rem;">Edit</a></td>
-                        </tr>
-                    }
+
+                    @await Html.PartialAsync("_DepartmentList")
+
                 </tbody>
             </table><!--end table-->
         }<!--end Model null check-->
