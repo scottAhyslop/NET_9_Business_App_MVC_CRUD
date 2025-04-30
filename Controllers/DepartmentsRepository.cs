@@ -6,7 +6,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
     public static class DepartmentsRepository
     {
         //Sample data for testing
-        private static List<Department> Departments = new List<Department>
+        private static List<Department> _departments = new List<Department>
         {
         new (1,"Amplified Voice",  "Ottawa St.", "Selling amps, microphones, and mixing boards", 50000),
         new (2,"Guitars",  "Ottawa St.", "Selling amps, guitars, and effects pedals", 150000),
@@ -15,12 +15,22 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         };
 
         //GET
-        public static List<Department> GetDepartments() => Departments;
+        public static List<Department> GetDepartments(string? filter = null)
+        {
+            if (string.IsNullOrWhiteSpace(filter)) return _departments;
+            //if filter is not null, return filtered list
+            return _departments
+                .Where(dep => dep.DepartmentName is not null && 
+                dep.DepartmentName.ToLower().Contains(filter.ToLower()))
+                .ToList();  
+
+        }
+
 
         //GET by Id
         public static Department? GetDepartmentById(int id)
         {
-                return Departments.FirstOrDefault(dep => dep.DepartmentId == id);
+                return _departments.FirstOrDefault(dep => dep.DepartmentId == id);
         }//end GetDepartmentById
 
         //POST Add department
@@ -34,14 +44,14 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             }
             else
             {
-                int maxId = Departments.Max(dep => dep.DepartmentId);
+                int maxId = _departments.Max(dep => dep.DepartmentId);
                 department.DepartmentId = maxId + 1;
                 department.DepartmentName = department.DepartmentName;
                 department.DepartmentLocation = department.DepartmentLocation;
                 department.DepartmentDescription = department.DepartmentDescription;
                 department.DepartmentAnnualSales = department.DepartmentAnnualSales;
                 //Add the new department to the list
-                Departments.Add(department);
+                _departments.Add(department);
             }
         }
         //end AddDepartment
@@ -51,7 +61,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         {
             if (department is not null)
             {
-                var depSelect = Departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
+                var depSelect = _departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
                 if (depSelect is not null)
                 {
                     depSelect.DepartmentName = department.DepartmentName;
@@ -63,32 +73,26 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             }//end department null check
             return false;
         }
-        //end pdateDepartment
-
-        //DELETE removes selected item from list 
+        //DELETE By DepartmentId
         public static bool DeleteDepartment(Department? department)
         {
-            if (department is not null) 
+            if (department is not null)
             {
-                //find the department to delete in departments list
-                var departments = GetDepartments();
-                if (departments is not null)
+                // Find the department to delete in the _departments list
+                var delDep = _departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
+                if (delDep is not null)
                 {
-                    var delDep = departments.FirstOrDefault(dep => dep.DepartmentId == department.DepartmentId);
-                    if (delDep is not null)
-                    {
-                        //remove the department from the list
-                        departments.Remove(delDep);
-                        return true;
-                    }
-                    else
-                    {
-                        //if the department is not found, return false
-                        return false;
-                    }//end delDep null check
-                }//end departments null check
-            }//end department null check
-            //if the department is null, return false
+                    // Remove the department from the list
+                    _departments.Remove(delDep);
+                    return true;
+                }
+                else
+                {
+                    // If the department is not found, return false
+                    return false;
+                } // end delDep null check
+            } // end department null check
+            // If the department is null, return false
             return false;
         }
         //end DeleteDepartment

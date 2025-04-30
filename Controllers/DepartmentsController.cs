@@ -8,11 +8,20 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         [HttpGet]
         public IActionResult Index(string? message)
         {
-            //get a list of sample test Departments from the repository
+            //get a list of sample test _departments from the repository
             //var departments = DepartmentsRepository.GetDepartments();
             
             return View();
         }//end Index (i.e. GetDepartments) //working perfectly
+
+        [Route("/department-list/{filter?}")]
+        public IActionResult SearchDepartments(string? filter) {
+
+            //get a list of filter results from the repository for selected _departments
+            var departments = DepartmentsRepository.GetDepartments(filter);
+
+            return PartialView("_DepartmentList", departments);
+        }
 
         [HttpGet]
         public IActionResult Details(int departmentId)
@@ -22,16 +31,16 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             var department = DepartmentsRepository.GetDepartmentById(departmentId);
             if (department is null)
             {
-                return View("DisplayErrors", new List<string>() { "Department not valid" });
+                return View("DisplayErrors", new List<string>() { "_departments not valid" });
             }
             else if (department is not null)
             {
                 return View(department);
             }
 
-            return View("DisplayErrors", new List<string>() { "Department not found" });
+            return View("DisplayErrors", new List<string>() { "_departments not found" });
 
-            /* return View("DisplayErrors", new List<string>() { "Department not found" });*/
+            /* return View("DisplayErrors", new List<string>() { "_departments not found" });*/
 
         }
         //end Details GetDepartmentById
@@ -88,7 +97,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 var department = DepartmentsRepository.GetDepartmentById(departmentId);
                 if (department is null)
                 {
-                    ModelState.AddModelError($"{departmentId}", "Department not found");
+                    ModelState.AddModelError($"{departmentId}", "_departments not found");
                     return View("DisplayErrors", GetErrors());
                 }
                 else if (department is not null)
@@ -97,11 +106,20 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             //fall through if validation and null checks fail
-            ModelState.AddModelError($"{departmentId}", "Department not valid, no Department Id found");//add an error, send it to the screen
+            ModelState.AddModelError($"{departmentId}", "_departments not valid, no _departments Id found");//add an error, send it to the screen
             return View("DisplayErrors", GetErrors());
         }
+        //end Delete
 
-        //GetErrors method to return a list of errors for display to Error view
+        //DisplayErrors method to return as per ExceptionHandler RFC 7807 comp.
+        [Route("/Views/Shared/DisplayError")]
+        public IActionResult DisplayErrors()
+        {
+            //return a view with the errors
+            return View(GetErrors());
+        }//end DisplayErrors
+
+        //GetErrors method to return a list of errors for display to DisplayErrors View
         private List<string> GetErrors()
         {
             List<string> errorMessages = new List<string>();

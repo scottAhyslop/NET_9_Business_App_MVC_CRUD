@@ -1,3 +1,10 @@
+
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using NET_9_Business_App_MVC_CRUD.Models;
+using static System.Net.Mime.MediaTypeNames;
+
 var HomeTestingPolicy = "_AllowHomeConnections";//testing only REMOVE FOR PRODUCTION
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,20 +16,67 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("http://localhost:5275",
-                              "http://localhost:5275/Departments/*/*")
+                              "http://localhost:5275/_departments/*/*")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                       });
 });//end CORS policy
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.InvalidModelStateResponseFactory = context =>
+            new BadRequestObjectResult(context.ModelState)
+            {
+                ContentTypes =
+                {
+                    // using static System.Net.Mime.MediaTypeNames;
+                    Application.Json,
+                    Application.Xml
+                }
+            };
+    })
+    .AddXmlSerializerFormatters();
+
+builder.Services.AddControllersWithViews(options =>
+    {
+        options.Filters.Add<HttpResponseExceptionFilter>();
+    }).AddXmlSerializerFormatters(); //add XML serializer formatter for XML output
+    
+
+         
+builder.Services.AddExceptionHandler
+    (options =>
+    {
+        options.ExceptionHandlingPath = "/Views/Shared/DisplayErrors";
+    });//end AddExceptionHandler
+builder.Services.AddMvc(options =>
+{
+    options.EnableEndpointRouting = false;
+});//end AddMvc
+
 
 var app = builder.Build();
+
 app.UseRouting();
+app.UseStaticFiles();
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Views/Shared/DisplayError");
+    app.UseHsts();
+}
+app.MapControllers();
+app.MapDefaultControllerRoute();
 
 #region CORS Testing Area
-//endpoints for Home and Departments controllers, CORS added, only for testing REMOVE FOR PRODUCTION
+//endpoints for Home and _departments controllers, CORS added, only for testing REMOVE FOR PRODUCTION
 app.UseCors();//testing only REMOVE FOR PRODUCTION 
 
 #pragma warning disable ASP0014 // Suggest using top level route registrations
@@ -37,7 +91,7 @@ app.UseEndpoints(endpoints =>
 
     endpoints.MapControllerRoute(
         name: "departments",
-        pattern: "{controller=Departments}/{action=Index}/{departmentId?}"
+        pattern: "{controller=_departments}/{action=Index}/{departmentId?}"
         ).RequireCors(HomeTestingPolicy);
 
 });

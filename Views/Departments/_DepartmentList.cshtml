@@ -4,7 +4,7 @@
     <!--displays each list item in the table-->
         if (Model is not null) //Model null check
         {
-            foreach (var department in Model)//Step through each Department in the Model
+            foreach (var department in Model)//Step through each _departments in the Model
             {
                     <!--inject _DepartmentListItem partial View for each Department-->
                     @await Html.PartialAsync("_DepartmentListItem", department)

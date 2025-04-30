@@ -5,7 +5,7 @@ namespace NET_9_Business_App_MVC.Models
     public class Department
     {
         public int DepartmentId { get; set; }
-        //[Required(ErrorMessage = "Department Name is required")]
+        //[Required(ErrorMessage = "_departments Name is required")]
         public string? DepartmentName { get; set; }
         public string? DepartmentLocation { get; set; }
         [StringLength(500, ErrorMessage = "Description cannot be longer than 500 characters.")]
