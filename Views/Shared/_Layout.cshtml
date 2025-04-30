@@ -22,8 +22,10 @@
     @await Html.PartialAsync("_Navbar")<!--Navbar for _Layout.cshtml-->
     <div class="center">
         <div class="container container-fluid">
-            <div style="padding-left:0.75rem;"><p>@RenderSection("title_section", false)</p></div>
-            @RenderBody()<!--Main Html holder for Views-->
+            <div style="padding-left:0.75rem;">
+                <p>@RenderSection("title_section", false)</p>
+            </div>
+                @RenderBody()<!--Main Html holder for Views-->
         </div><!--end wrapper container-->
     </div>  
     <!--b.s. js import (last cos it takes longest;)-->

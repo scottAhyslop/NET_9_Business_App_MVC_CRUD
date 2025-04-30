@@ -15,17 +15,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         };
 
         //GET
-        public static List<Department> GetDepartments(string? filter = null)
-        {
-            if (string.IsNullOrWhiteSpace(filter)) return _departments;
-            //if filter is not null, return filtered list
-            return _departments
-                .Where(dep => dep.DepartmentName is not null && 
-                dep.DepartmentName.ToLower().Contains(filter.ToLower()))
-                .ToList();  
-
-        }
-
+        public static List<Department> GetDepartments() => _departments;
 
         //GET by Id
         public static Department? GetDepartmentById(int id)
@@ -73,6 +63,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             }//end department null check
             return false;
         }
+
         //DELETE By DepartmentId
         public static bool DeleteDepartment(Department? department)
         {

@@ -1,6 +1,6 @@
 ﻿@model Department
 @{
-    ViewBag.Title = "_departments Details";
+    ViewBag.Title = "Department Details";
     ViewBag.Action = "edit";
 }
 @section title_section {
@@ -18,12 +18,12 @@
         <!--Cancel button to /departments-->
         <div >
             <form method='get' action='/departments'>
-                <button type='submit' class="btn btn-outline-primary btn-sm">Cancel</button>
+                <button type='submit' class="btn btn-outline-primary btn-sm" style="margin-top:0.75rem;">Cancel</button>
             </form>
         </div>
    </div><!--end container-->
    <!--Delete button-->
-   <form style="padding-left:0.75rem;" method='post' action='/departments/delete/@Model.DepartmentId'>
+    <form style="padding-left:0.75rem; margin-top:0.75rem;" method='post' action='/departments/delete/@Model.DepartmentId'>
     <button type='submit' class="btn btn-outline-danger btn-sm">Delete</button>
    </form>
 </div><!--end center class-->

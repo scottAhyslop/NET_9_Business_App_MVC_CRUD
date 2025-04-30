@@ -1,7 +1,4 @@
-
-
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using NET_9_Business_App_MVC_CRUD.Models;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -22,9 +19,10 @@ builder.Services.AddCors(options =>
                       });
 });//end CORS policy
 
-// Add services to the container.
+// Add Razor Page services to the container.
 builder.Services.AddRazorPages();
 
+//Start Response Factory for ExceptionHandling at endpoints
 builder.Services.AddControllers()
     .ConfigureApiBehaviorOptions(options =>
     {
@@ -40,29 +38,35 @@ builder.Services.AddControllers()
             };
     })
     .AddXmlSerializerFormatters();
+//end response factory for ExceptionHandling 
 
+//add ExceptionFilter for handling exceptions
 builder.Services.AddControllersWithViews(options =>
     {
         options.Filters.Add<HttpResponseExceptionFilter>();
-    }).AddXmlSerializerFormatters(); //add XML serializer formatter for XML output
-    
+    })
+    .AddXmlSerializerFormatters(); //add XML serializer formatter for XML output
 
-         
+//add custom error handling
 builder.Services.AddExceptionHandler
     (options =>
     {
         options.ExceptionHandlingPath = "/Views/Shared/DisplayErrors";
     });//end AddExceptionHandler
+
 builder.Services.AddMvc(options =>
 {
-    options.EnableEndpointRouting = false;
+    options.EnableEndpointRouting = true;
 });//end AddMvc
-
 
 var app = builder.Build();
 
-app.UseRouting();
+//to use local files
 app.UseStaticFiles();
+//for endpoint processing
+app.UseRouting();
+
+//ExceptionHandling service
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -72,12 +76,11 @@ else
     app.UseExceptionHandler("/Views/Shared/DisplayError");
     app.UseHsts();
 }
-app.MapControllers();
-app.MapDefaultControllerRoute();
 
+app.UseCors();//testing only REMOVE FOR PRODUCTION 
 #region CORS Testing Area
 //endpoints for Home and _departments controllers, CORS added, only for testing REMOVE FOR PRODUCTION
-app.UseCors();//testing only REMOVE FOR PRODUCTION 
+
 
 #pragma warning disable ASP0014 // Suggest using top level route registrations
 app.UseEndpoints(endpoints =>
@@ -98,5 +101,10 @@ app.UseEndpoints(endpoints =>
 #pragma warning restore ASP0014 // Suggest using top level route registrations
 
 #endregion
+
+app.MapControllers();
+app.MapDefaultControllerRoute();
+
+
 
 app.Run();

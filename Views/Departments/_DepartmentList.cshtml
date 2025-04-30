@@ -1,14 +1,12 @@
-﻿@model IEnumerable<Department>
-
-@{
-    <!--displays each list item in the table-->
-        if (Model is not null) //Model null check
-        {
-            foreach (var department in Model)//Step through each _departments in the Model
-            {
-                    <!--inject _DepartmentListItem partial View for each Department-->
-                    @await Html.PartialAsync("_DepartmentListItem", department)
-            }
-            <!--end foreach block-->
-        }//end Model null check
-}<!--end C# code block-->
+﻿@model List<Department>
+<!--displays each list item in the table-->
+@if (Model is not null) //Model null check
+{
+    @foreach (var department in Model)//Step through each _departments in the Model
+    {
+        <!--inject _DepartmentListItem partial View for each Department-->
+        @await Html.PartialAsync("_DepartmentListItem", department)
+    }
+    <!--end foreach block-->
+}//end Model null check
+<!--end C# code block-->

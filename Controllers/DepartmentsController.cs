@@ -9,39 +9,24 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         public IActionResult Index(string? message)
         {
             //get a list of sample test _departments from the repository
-            //var departments = DepartmentsRepository.GetDepartments();
+            var departments = DepartmentsRepository.GetDepartments();
             
-            return View();
+            return View(departments);
         }//end Index (i.e. GetDepartments) //working perfectly
 
-        [Route("/department-list/{filter?}")]
-        public IActionResult SearchDepartments(string? filter) {
-
-            //get a list of filter results from the repository for selected _departments
-            var departments = DepartmentsRepository.GetDepartments(filter);
-
-            return PartialView("_DepartmentList", departments);
-        }
-
+        
         [HttpGet]
         public IActionResult Details(int departmentId)
         {
             //check if departmentId is valid
-           
-            var department = DepartmentsRepository.GetDepartmentById(departmentId);
-            if (department is null)
+           var department = DepartmentsRepository.GetDepartmentById(departmentId);
+
+            if (department == null)
             {
-                return View("DisplayErrors", new List<string>() { "_departments not valid" });
-            }
-            else if (department is not null)
-            {
-                return View(department);
+                return View("DisplayErrors", new List<string>() { "Department not valid" });
             }
 
-            return View("DisplayErrors", new List<string>() { "_departments not found" });
-
-            /* return View("DisplayErrors", new List<string>() { "_departments not found" });*/
-
+            return View(department);
         }
         //end Details GetDepartmentById
 
