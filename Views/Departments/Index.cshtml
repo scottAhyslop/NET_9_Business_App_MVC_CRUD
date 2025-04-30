@@ -1,5 +1,4 @@
-﻿@model List<Department>
-
+﻿<!-- <title></title> element for page and action type-->
 @{
     ViewBag.Title = "Departments List";
     ViewBag.Action = "edit";
@@ -9,7 +8,7 @@
 }
 <!--Index View Departments-->
 <div class="center">
-    <div class='container'>
+    <div class='container-fluid'>
         @* <div style="padding-bottom:1.5rem;">
             @await Html.PartialAsync("_SearchBar")
         </div> *@
@@ -35,11 +34,15 @@
                 <!--Table Body-->
                 <tbody id="department-list" style="text-align:center;">
 
-                    @await Html.PartialAsync("_DepartmentList")
+                    <!--Partial View method-->
+                    @* <!--@await Html.PartialAsync("_DepartmentList")--> *@
+                
+                    <!--ViewComponent method-->
+                    @await Component.InvokeAsync("DepartmentList")
 
                 </tbody>
             </table><!--end table-->
-        }<!--end Model null check-->
+        }
   </div><!--close container-->
 </div><!--close center class-->
 <!--End of Index View Departments-->
