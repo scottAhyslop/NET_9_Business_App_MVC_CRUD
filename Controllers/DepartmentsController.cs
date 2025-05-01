@@ -14,7 +14,24 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             return View(departments);
         }//end Index (i.e. GetDepartments) //working perfectly
 
-        
+        /*[Route("/department-list/{filter?}")]
+        public IActionResult SearchDepartments(string? filter)
+        {
+            //get a list of sample test _departments from the repository
+            var departments = DepartmentsRepository.GetDepartments(filter);
+            return View(departments);
+        }//end SearchDepartments
+         //*/
+
+
+        [Route("/department-list/{filter?}")]
+        public IActionResult SearchDepartments(string? filter)
+        {
+            //get a list of sample test _departments from the repository based on filter
+            return ViewComponent("DepartmentList", new { filter });
+             
+        }//end SearchDepartments
+
         [HttpGet]
         public IActionResult Details(int departmentId)
         {

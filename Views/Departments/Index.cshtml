@@ -6,6 +6,9 @@
 @section title_section {
     <h2>Department Details</h2>
 }
+
+@* @await Html.PartialAsync("_SearchBar") *@
+
 <!--Index View Departments-->
 <div class="center">
     <div class='container-fluid'>
@@ -38,7 +41,7 @@
                     @* <!--@await Html.PartialAsync("_DepartmentList")--> *@
                 
                     <!--ViewComponent method-->
-                    @await Component.InvokeAsync("DepartmentList", new {filter="guitars"})
+                    @await Component.InvokeAsync("DepartmentList")
 
                 </tbody>
             </table><!--end table-->
@@ -50,5 +53,4 @@
 <!--script section for Search Bar functionality-->
 <script>
 
-        
 </script>

@@ -24,7 +24,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 return _departments.Where(dep => dep.DepartmentName?.Contains(filter, StringComparison.OrdinalIgnoreCase) == true).ToList();
             }
 
-        }
+        }//end GetDepartments with string filter
 
         //GET by Id
         public static Department? GetDepartmentById(int id)
