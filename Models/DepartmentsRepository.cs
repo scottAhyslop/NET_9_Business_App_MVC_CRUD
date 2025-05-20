@@ -12,6 +12,7 @@ namespace NET_9_Business_App_MVC_CRUD.Models
         new (2,"Guitars",  "Ottawa St.", "Selling amps, guitars, and effects pedals", 150000),
         new (3,"Basses", "Ottawa St.", "Selling amps, basses, and effects pedals", 75000),
         new (4,"Percussion", "Ottawa St.", "Selling drums, bongos, and cymbals", 850000),
+        new (5,"Keyboards", "Ottawa St.", "Selling keyboards, synthesizers, effects pedals and more", 850000),
         };
 
         //GET
