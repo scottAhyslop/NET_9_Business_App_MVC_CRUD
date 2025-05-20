@@ -1,7 +1,7 @@
 ﻿using NET_9_Business_App_MVC.Models;
 using System.Xml.Linq;
 
-namespace NET_9_Business_App_MVC_CRUD.Controllers
+namespace NET_9_Business_App_MVC_CRUD.Models
 {
     public static class DepartmentsRepository
     {

@@ -6,9 +6,9 @@
 @section title_section {
     <h2>Department Details</h2>
 }
-
-@* @await Html.PartialAsync("_SearchBar") *@
-
+<div style="padding-bottom:1.5rem;">
+    @await Html.PartialAsync("_SearchBar")
+</div>
 <!--Index View Departments-->
 <div class="center">
     <div class='container-fluid'>
@@ -53,4 +53,16 @@
 <!--script section for Search Bar functionality-->
 <script>
 
+loadDepartments("");
+
+document.querySelector("#search-button").addEventListener("click", async()=>{
+        var filter = document.querySelector("#search-filter").value;
+            loadDepartments(filter);
+});
+
+async function loadDepartments(filter){
+        var response = await fetch(`/department-list/${filter}`);
+            var departmentsHtml = await response.text();
+                document.querySelector("#department-list").innerHTML = departmentsHtml;
+}
 </script>
