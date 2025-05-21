@@ -42,6 +42,9 @@ builder.Services.AddExceptionHandler
 
 #endregion
 
+// Add Razor Page services to the container.
+builder.Services.AddRazorPages();
+
 //add CORS policy for testing purposes, remove for production
 builder.Services.AddCors(options =>
 {
@@ -49,14 +52,11 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("http://localhost:5275",
-                              "http://localhost:5275/departments/*/*")
+                              "http://localhost:5275/*/*")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                       });
 });//end CORS policy
-
-// Add Razor Page services to the container.
-builder.Services.AddRazorPages();
 
 builder.Services.AddMvc(options =>
 {

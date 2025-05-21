@@ -1,0 +1,12 @@
+﻿@using NET_9_Business_App_MVC.Models
+<!--Model type for the Employee list-->
+@model List<Employee>
+<div class="container-fluid">
+    @if (Model is not null && Model.Count > 0)
+        {
+            foreach (var employee in Model)
+            {
+                @await Html.PartialAsync("_EmployeeListItem", employee)
+            }//end foreach loop to display each Employee
+        }<!--end null model check-->
+</div><!--close container-->

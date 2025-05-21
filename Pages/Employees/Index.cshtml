@@ -17,53 +17,30 @@
         <div class='header' style="padding-bottom:0.75rem;">
             <a class="btn btn-outline-success btn-sm" href='/employees/create'>Create</a>
         </div>
-        @if (Model is not null)//null check of the model
-        {
-            <!--Table section for display of Departments data-->
-            <table class="table-dark" style="text-align:center;">
-                <!--TODO: Change this to a dl, dd, dt set instead of table for better accessibility-->
-                <!--Table Head-->
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Position</th>
-                        <th>Salary</th>
-                        <th>Department</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <!--Table Body-->
-                <tbody id="employee-list">
-
-                    @if (Model.Employees is not null &&
-                        Model.Employees.Count>0)
-                    {
-                        foreach (var employee in Model.Employees)
-                        {
-                            <tr>
-                                <td>@employee.EmployeeId</td>
-                                <td>@employee.EmployeeFirstName</td>
-                                <td>@employee.EmployeeLastName</td>
-                                <td>@employee.EmployeePosition</td>
-                                <td>@employee.EmployeeSalary</td>
-                                <td><a class="btn btn-outline-primary btn-sm" href="/departments/details/@employee.DepartmentId">@employee.EmployeeDepartment?.DepartmentName</a></td>
-                                <td><a class="btn btn-outline-warning btn-sm" href="/employees/edit/@employee.EmployeeId">Edit</a></td>
-                            </tr>
-                        }
-                    }
-
-                </tbody>
-            </table>
-            <!--end table-->
-        }
-    </div><!--close container-->
+        <!--TODO: Change this to a dl, dd, dt set instead of table for better accessibility-->
+        <table class="table table-dark">
+        <!--Table Head-->
+        <thead style="margin-bottom:0.75rem;">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Position</th>
+                <th>Salary</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <!--Table Body-->
+        <tbody id="employee-list">
+                @await Component.InvokeAsync("EmployeeList")
+        </tbody>
+        </table>
 </div><!--close center class-->
 <!--End of Razor Page for Employees-->
 
 <!--script section for Search Bar functionality-->
-<script>
+@* <script>
 
     loadDepartments("");
 
@@ -77,4 +54,4 @@
                 var departmentsHtml = await response.text();
                     document.querySelector("#department-list").innerHTML = departmentsHtml;
     }
-</script>
+</script> *@
