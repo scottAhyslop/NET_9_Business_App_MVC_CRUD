@@ -46,7 +46,8 @@ namespace NET_9_Business_App_MVC_CRUD.Models
 
              return _employees;
 
-        }//end GetDepartments with string filter
+        }
+        //end GetDepartments with string filter
 
         //GET by Id
         public static Employee? GetEmployeeById(int id)
@@ -54,7 +55,7 @@ namespace NET_9_Business_App_MVC_CRUD.Models
             return _employees.FirstOrDefault(emp => emp.EmployeeId == id);
         }//end GetDepartmentById
 
-        //POST Add department
+        //POST Add department w/ data from form in the employee object
         public static void AddEmployee(Employee? employee)
         {
             //Check if the department is null
@@ -79,7 +80,7 @@ namespace NET_9_Business_App_MVC_CRUD.Models
         }
         //end AddDepartment
 
-        //POST Update department
+        //POST Update department w/ data from form in the employee object
         public static bool UpdateEmployee(Employee? employee)
         {
             //null check for employee object
@@ -100,6 +101,7 @@ namespace NET_9_Business_App_MVC_CRUD.Models
             }//end department null check
             return false;
         }
+        //end UpdateEmployee
 
         //DELETE By DepartmentId
         public static bool DeleteEmployee(Employee? employee)

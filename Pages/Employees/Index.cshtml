@@ -1,0 +1,18 @@
+﻿@page
+@model NET_9_Business_App_MVC_CRUD.Pages.Employees.IndexModel
+@{
+}
+@{
+    ViewData["Title"] = "Employees Home";
+}
+@{
+    Layout = "_Layout";
+}
+<div style="padding-bottom:1.5rem;">
+    @await Html.PartialAsync("_SearchBar")
+</div>
+<div class="center">
+    <div class='container-fluid'>
+        <h3 style="color:dodgerblue;">Employees Page</h3>
+    </div><!--end content container-->
+</div><!--end center-->

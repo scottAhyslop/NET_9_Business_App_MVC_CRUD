@@ -13,7 +13,7 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("http://localhost:5275",
-                              "http://localhost:5275/_departments/*/*")
+                              "http://localhost:5275/departments/*/*")
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                       });
@@ -21,6 +21,8 @@ builder.Services.AddCors(options =>
 
 // Add Razor Page services to the container.
 builder.Services.AddRazorPages();
+
+#region Error Handling
 
 //Start Response Factory for ExceptionHandling at endpoints
 builder.Services.AddControllers()
@@ -54,6 +56,8 @@ builder.Services.AddExceptionHandler
         options.ExceptionHandlingPath = "/Views/Shared/DisplayErrors";
     });//end AddExceptionHandler
 
+#endregion
+
 builder.Services.AddMvc(options =>
 {
     options.EnableEndpointRouting = true;
@@ -78,6 +82,29 @@ else
 }
 
 app.UseCors();//testing only REMOVE FOR PRODUCTION 
+
+#pragma warning disable ASP0014 // For ease of development, change to accepted b.p. for production
+
+//Endpoints for MVC and Razor Pages
+app.UseEndpoints(endpoints =>
+{
+    //default Home route
+    endpoints.MapControllerRoute(
+        name:"default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+        );
+    //default Departments route
+    endpoints.MapControllerRoute(
+        name: "departments",
+        pattern: "{controller=Departments}/{action=Index}/{departmentId?}"
+        );
+    //add Razor Pages functionality
+    endpoints.MapRazorPages();
+});
+
+#pragma warning restore ASP0014
+
+
 #region CORS Testing Area
 //endpoints for Home and _departments controllers, CORS added, only for testing REMOVE FOR PRODUCTION
 
