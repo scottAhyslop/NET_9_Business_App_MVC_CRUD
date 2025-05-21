@@ -6,22 +6,6 @@ var HomeTestingPolicy = "_AllowHomeConnections";//testing only REMOVE FOR PRODUC
 
 var builder = WebApplication.CreateBuilder(args);
 
-//add CORS policy for testing purposes, remove for production
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: HomeTestingPolicy,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:5275",
-                              "http://localhost:5275/departments/*/*")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                      });
-});//end CORS policy
-
-// Add Razor Page services to the container.
-builder.Services.AddRazorPages();
-
 #region Error Handling
 
 //Start Response Factory for ExceptionHandling at endpoints
@@ -44,9 +28,9 @@ builder.Services.AddControllers()
 
 //add ExceptionFilter for handling exceptions
 builder.Services.AddControllersWithViews(options =>
-    {
-        options.Filters.Add<HttpResponseExceptionFilter>();
-    })
+{
+    options.Filters.Add<HttpResponseExceptionFilter>();
+})
     .AddXmlSerializerFormatters(); //add XML serializer formatter for XML output
 
 //add custom error handling
@@ -57,6 +41,22 @@ builder.Services.AddExceptionHandler
     });//end AddExceptionHandler
 
 #endregion
+
+//add CORS policy for testing purposes, remove for production
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: HomeTestingPolicy,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:5275",
+                              "http://localhost:5275/departments/*/*")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});//end CORS policy
+
+// Add Razor Page services to the container.
+builder.Services.AddRazorPages();
 
 builder.Services.AddMvc(options =>
 {

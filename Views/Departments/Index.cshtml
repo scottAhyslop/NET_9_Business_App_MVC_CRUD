@@ -3,18 +3,21 @@
     ViewBag.Title = "Departments List";
     ViewBag.Action = "edit";
 }
-@section title_section {
-    <h2>Department Details</h2>
-}
+
+<!--Search bar section-->
 <div style="padding-bottom:1.5rem;">
     @await Html.PartialAsync("_SearchBar")
 </div>
+
+<!--title section-->
+@section title_section {
+    <h3 style="color:dodgerblue;">Department Details</h3>
+}
+
 <!--Index View Departments-->
 <div class="center">
     <div class='container-fluid'>
-        @* <div style="padding-bottom:1.5rem;">
-            @await Html.PartialAsync("_SearchBar")
-        </div> *@
+      
         <div class='header' style="padding-bottom:0.75rem;">
             <a class="btn btn-outline-success btn-sm" href='/departments/create'>Create</a>
         </div>
@@ -26,11 +29,11 @@
                 <!--Table Head-->
                 <thead style="text-align:center;">
                     <tr>
-                        <th>Department Id</th>
-                        <th>Department Name</th>
-                        <th>Department Location</th>
-                        <th>Department Description</th>
-                        <th>Department Annual Sales</th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                        <th>Annual Sales  </th>
                         <th>Actions</th>
                     </tr>
                 </thead>

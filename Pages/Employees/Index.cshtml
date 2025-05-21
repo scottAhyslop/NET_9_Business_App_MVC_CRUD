@@ -1,18 +1,80 @@
 ﻿@page
 @model NET_9_Business_App_MVC_CRUD.Pages.Employees.IndexModel
-@{
-}
+
 @{
     ViewData["Title"] = "Employees Home";
 }
-@{
-    Layout = "_Layout";
-}
+
 <div style="padding-bottom:1.5rem;">
     @await Html.PartialAsync("_SearchBar")
 </div>
+<!--Index View Departments-->
 <div class="center">
     <div class='container-fluid'>
-        <h3 style="color:dodgerblue;">Employees Page</h3>
-    </div><!--end content container-->
-</div><!--end center-->
+        @section title_section {
+            <h3 style="color:dodgerblue;">Employee Details</h3>
+        }
+        <div class='header' style="padding-bottom:0.75rem;">
+            <a class="btn btn-outline-success btn-sm" href='/employees/create'>Create</a>
+        </div>
+        @if (Model is not null)//null check of the model
+        {
+            <!--Table section for display of Departments data-->
+            <table class="table-dark" style="text-align:center;">
+                <!--TODO: Change this to a dl, dd, dt set instead of table for better accessibility-->
+                <!--Table Head-->
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Position</th>
+                        <th>Salary</th>
+                        <th>Department</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <!--Table Body-->
+                <tbody id="employee-list">
+
+                    @if (Model.Employees is not null &&
+                        Model.Employees.Count>0)
+                    {
+                        foreach (var employee in Model.Employees)
+                        {
+                            <tr>
+                                <td>@employee.EmployeeId</td>
+                                <td>@employee.EmployeeFirstName</td>
+                                <td>@employee.EmployeeLastName</td>
+                                <td>@employee.EmployeePosition</td>
+                                <td>@employee.EmployeeSalary</td>
+                                <td><a class="btn btn-outline-primary btn-sm" href="/departments/details/@employee.DepartmentId">@employee.EmployeeDepartment?.DepartmentName</a></td>
+                                <td><a class="btn btn-outline-warning btn-sm" href="/employees/edit/@employee.EmployeeId">Edit</a></td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+            <!--end table-->
+        }
+    </div><!--close container-->
+</div><!--close center class-->
+<!--End of Razor Page for Employees-->
+
+<!--script section for Search Bar functionality-->
+<script>
+
+    loadDepartments("");
+
+    document.querySelector("#search-button").addEventListener("click", async()=>{
+            var filter = document.querySelector("#search-filter").value;
+                loadDepartments(filter);
+    });
+
+    async function loadDepartments(filter){
+            var response = await fetch(`/department-list/${filter}`);
+                var departmentsHtml = await response.text();
+                    document.querySelector("#department-list").innerHTML = departmentsHtml;
+    }
+</script>
