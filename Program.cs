@@ -92,42 +92,22 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name:"default",
         pattern: "{controller=Home}/{action=Index}/{id?}"
-        );
+        ).RequireCors(HomeTestingPolicy);
     //default Departments route
     endpoints.MapControllerRoute(
         name: "departments",
         pattern: "{controller=Departments}/{action=Index}/{departmentId?}"
-        );
+        ).RequireCors(HomeTestingPolicy); 
+    //default Employees route
+    endpoints.MapControllerRoute(
+        name: "employees",
+        pattern: "{controller=Employees}/{action=Index}/{employeeId?}"
+        ).RequireCors(HomeTestingPolicy); 
     //add Razor Pages functionality
-    endpoints.MapRazorPages();
+    endpoints.MapRazorPages().RequireCors(HomeTestingPolicy);
 });
 
 #pragma warning restore ASP0014
-
-
-#region CORS Testing Area
-//endpoints for Home and _departments controllers, CORS added, only for testing REMOVE FOR PRODUCTION
-
-
-#pragma warning disable ASP0014 // Suggest using top level route registrations
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers().RequireCors(HomeTestingPolicy);
-
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{departmentId?}"
-        ).RequireCors(HomeTestingPolicy);
-
-    endpoints.MapControllerRoute(
-        name: "departments",
-        pattern: "{controller=_departments}/{action=Index}/{departmentId?}"
-        ).RequireCors(HomeTestingPolicy);
-
-});
-#pragma warning restore ASP0014 // Suggest using top level route registrations
-
-#endregion
 
 app.MapControllers();
 app.MapDefaultControllerRoute();
