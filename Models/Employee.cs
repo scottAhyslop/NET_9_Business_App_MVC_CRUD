@@ -20,14 +20,15 @@ namespace NET_9_Business_App_MVC.CRUD.Models
             
         }
 
-        public Employee(int employeeId, string employeeFirstName, string employeeLastName, string employeePosition, int departmentId, double employeeSalary)
+        public Employee(int employeeId, string employeeFirstName, string employeeLastName, string employeePosition, double employeeSalary, int departmentId)
         {
-            EmployeeId = employeeId;
-            EmployeeFirstName = employeeFirstName;
-            EmployeeLastName = employeeLastName;
-            EmployeePosition = employeePosition;
-            DepartmentId = departmentId;
-            EmployeeSalary = employeeSalary;
+            this.EmployeeId = employeeId;
+            this.EmployeeFirstName = employeeFirstName;
+            this.EmployeeLastName = employeeLastName;
+            this.EmployeePosition = employeePosition;
+            this.EmployeeSalary = employeeSalary;
+            this.DepartmentId = departmentId;
+            
         }
     }//end Employee class
 }//end namespace

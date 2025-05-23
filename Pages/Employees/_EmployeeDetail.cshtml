@@ -7,49 +7,49 @@
         @Html.AntiForgeryToken()
         @if (ViewBag.Action == "edit")
         {
-            <input type="hidden" name="Employee.EmployeeId" value="@Model.Employee.EmployeeId"/>
+            <input type='hidden' name='EmployeeId' value='@Model.Employee.EmployeeId'/>
         }
         <!--first name-->
-        <div class="row md-3">
+        <div class="row sm-3">
             <div class="col-sm-2">
                 <label class="col-form-label">First Name: </label>
             </div>
             <div class="col-sm-5">
-                <input type="text" name="Employee.FirstName" value="@Model.Employee.EmployeeFirstName" class="form-control" />
+                <input type='text' name='Employee.FirstName' value='@Model.Employee.EmployeeFirstName' class="form-control" />
             </div>
         </div>
         <br />
-        <!--last name-->
+        <!--last name--> 
         <div class="row sm-3">
             <div class="col-sm-2">
                 <label class="col-form-label">Last Name: </label>
             </div>
             <div class="col-sm-5">
-                <input type="text" name="Employee.LastName" value="@Model.Employee.EmployeeLastName" class="form-control" />
+                <input type='text' name='Employee.LastName' value='@Model.Employee.EmployeeLastName' class="form-control" />
             </div>
         </div>
         <br />
-        <!--position-->
+        <!--position--> <!--working-->
         <div class="row sm-3">
             <div class="col-sm-2">
                 <label class="col-form-label">Position: </label>
             </div>
             <div class="col-sm-5">
-                <input type="text" name="Employee.EmployeePosition" value="@Model.Employee.EmployeePosition" class="form-control" />
+                <input type='text' name='Employee.EmployeePosition' value='@Model.Employee.EmployeePosition' class="form-control" />
             </div>
         </div>
         <br />
-        <!--salary-->
+        <!--salary--> <!--working-->
         <div class="row sm-3">
             <div class="col-sm-2">
                 <label class="col-form-label">Salary: </label>
             </div>
             <div class="col-sm-5">
-                <input type="number" name="Employee.EmployeeSalary" value="@Model.Employee.EmployeeSalary" class="form-control" />
+                <input type='number' name='Employee.EmployeeSalary' value='@Model.Employee.EmployeeSalary' class="form-control" />
             </div>
         </div>
         <br />
-        <!--department-->
+        <!--department--> <!--working-->
         <div class="row sm-3">
             <div class="col-sm-2">
                 <label class="col-form-label">Department: </label>
@@ -64,7 +64,7 @@
                             <option selected value="0">-- Please Select Department --</option>
                         }else
                         {
-                            <option value="0" style="text-align:center;">-- Please Select Department --</option>
+                            <option value="0" style="width:75%;">-- Please Select Department --</option>
                         }
 
                         @foreach (var department in Model.Departments)
@@ -91,14 +91,14 @@
             </div>
         </div>
         <br />
-        <!--submit button-->
-        <div class="row mb-3">
+        <!--save/cancel buttons--> <!--working-->
+        <div class="row sm-3">
             <div class="col-sm-2">
                 <button type='submit' class="btn btn-outline-success" style="margin-bottom:0.75rem; width:4.55rem;">Save</button>
                 <br />
                 <a href="/employees" class="btn btn-outline-danger" style="">Cancel</a>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 
             </div>
         </div>
