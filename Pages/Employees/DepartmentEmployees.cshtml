@@ -1,0 +1,34 @@
+﻿@page "{departmentId:int}"
+@model NET_9_Business_App_MVC_CRUD.Pages.Employees.DepartmentEmployeesModel
+@{
+    ViewData["Title"] = $"Employees in {@Model.DepartmentName}";
+}
+
+<div class="center">
+    <div class='container-fluid'>
+    @section title_section {
+                <h3 style="color:lightgreen;">Employees in @Model.DepartmentName</h3> 
+    }
+    <br />
+        <table class="table table-dark">
+            <!--Table Head-->
+            <thead style="margin-bottom:0.75rem;">
+                <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Position</th>
+                    <th>Salary</th>
+                    <th>Department</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <!--Table Body-->
+            <tbody id="employee-list">
+               
+                @await Component.InvokeAsync("EmployeeList", new { filter="", departmentId = Model.DepartmentId })
+            </tbody>
+        </table>
+    </div><!--close container-->
+</div><!--close center class-->
+
