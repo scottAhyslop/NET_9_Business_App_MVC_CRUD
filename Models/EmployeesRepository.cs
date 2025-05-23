@@ -1,4 +1,5 @@
-﻿using NET_9_Business_App_MVC.Models;
+﻿
+using NET_9_Business_App_MVC.CRUD.Models;
 
 namespace NET_9_Business_App_MVC_CRUD.Models
 {

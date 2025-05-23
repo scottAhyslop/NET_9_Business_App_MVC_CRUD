@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NET_9_Business_App_MVC.Models
+namespace NET_9_Business_App_MVC.CRUD.Models
 {
     public class Department
     {

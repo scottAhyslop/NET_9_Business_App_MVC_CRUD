@@ -36,22 +36,34 @@
                 @await Component.InvokeAsync("EmployeeList")
         </tbody>
         </table>
+        </div><!--close container-->
 </div><!--close center class-->
 <!--End of Razor Page for Employees-->
 
 <!--script section for Search Bar functionality-->
-@* <script>
 
-    loadDepartments("");
+@section scripts
+{
+    <script>
+       
+        document.querySelector("#search-button").addEventListener("click", async()=>{
+        var filter = document.querySelector("#search-filter").value;
+        loadEmployees(filter);
 
-    document.querySelector("#search-button").addEventListener("click", async()=>{
-            var filter = document.querySelector("#search-filter").value;
-                loadDepartments(filter);
-    });
+        });
 
-    async function loadDepartments(filter){
+        async function loadEmployees(filter){
             var response = await fetch(`/department-list/${filter}`);
-                var departmentsHtml = await response.text();
-                    document.querySelector("#department-list").innerHTML = departmentsHtml;
-    }
+            var employeesHtml = await response.text();
+                 document.querySelector("#department-list").innerHTML = employeesHtml;
+       }
+     
+    </script>
+
+    @*loadDepartments('');
+
+    
+
+    
 </script> *@
+}
