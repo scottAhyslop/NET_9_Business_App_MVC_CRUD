@@ -54,15 +54,22 @@
             <input type='text' name='DepartmentAnnualSales' value='@Model.DepartmentAnnualSales' class="form-control" />
         </div>
     </div>
-    
-    <button type='submit' class="btn btn-outline-success" style="">Save</button>
+    <div class="row mb-3">
+        <div class="col-sm-2">
+        <button type='submit' class="btn btn-outline-success" style="">Save</button>
+        <a href="/employees"  class="btn btn-outline-danger" style="">Cancel</a>
+        </div>
+        <div class="col-sm-4">
+        @{
+            if (ViewBag.Action == "edit")
+            {
+                <a href="/employees/departmentemployees/@Model.DepartmentId" class="btn btn-outline-warning btn-sm">Employees</a>
+            }
+        }
+        </div>
+    </div>
 </form><!--end main Form body-->
 
 <!--Employees by Department link-->
 <br/>
-@{
-    if (ViewBag.Action == "edit")
-    {
-        <a href="/employees/departmentemployees/@Model.DepartmentId"  class="btn btn-outline-warning btn-sm">Employees</a>
-    }
-}
+

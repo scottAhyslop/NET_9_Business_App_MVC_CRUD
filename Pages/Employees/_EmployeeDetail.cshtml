@@ -1,0 +1,106 @@
+﻿@model EmployeeViewModel
+
+<!--null check for both the ViewModel and the Employee within-->
+@if (Model is not null && Model.Employee is not null)
+{
+    <form method="post">
+        @Html.AntiForgeryToken()
+        @if (ViewBag.Action == "edit")
+        {
+            <input type="hidden" name="Employee.EmployeeId" value="@Model.Employee.EmployeeId"/>
+        }
+        <!--first name-->
+        <div class="row md-3">
+            <div class="col-sm-2">
+                <label class="col-form-label">First Name: </label>
+            </div>
+            <div class="col-sm-5">
+                <input type="text" name="Employee.FirstName" value="@Model.Employee.EmployeeFirstName" class="form-control" />
+            </div>
+        </div>
+        <br />
+        <!--last name-->
+        <div class="row sm-3">
+            <div class="col-sm-2">
+                <label class="col-form-label">Last Name: </label>
+            </div>
+            <div class="col-sm-5">
+                <input type="text" name="Employee.LastName" value="@Model.Employee.EmployeeLastName" class="form-control" />
+            </div>
+        </div>
+        <br />
+        <!--position-->
+        <div class="row sm-3">
+            <div class="col-sm-2">
+                <label class="col-form-label">Position: </label>
+            </div>
+            <div class="col-sm-5">
+                <input type="text" name="Employee.EmployeePosition" value="@Model.Employee.EmployeePosition" class="form-control" />
+            </div>
+        </div>
+        <br />
+        <!--salary-->
+        <div class="row sm-3">
+            <div class="col-sm-2">
+                <label class="col-form-label">Salary: </label>
+            </div>
+            <div class="col-sm-5">
+                <input type="number" name="Employee.EmployeeSalary" value="@Model.Employee.EmployeeSalary" class="form-control" />
+            </div>
+        </div>
+        <br />
+        <!--department-->
+        <div class="row sm-3">
+            <div class="col-sm-2">
+                <label class="col-form-label">Department: </label>
+            </div>
+            <div class="col-sm-5">
+                <select name="Employee.DepartmentId" class="form-control">
+                  @if (Model.Departments is not null)
+                  {
+                      <!--first position of select element, based on action-->
+                      @if (ViewBag.Action == "create")
+                        {
+                            <option selected value="0">-- Please Select Department --</option>
+                        }else
+                        {
+                            <option value="0" style="text-align:center;">-- Please Select Department --</option>
+                        }
+
+                        @foreach (var department in Model.Departments)
+                        {
+                            if (ViewBag.Action == "edit")
+                            {
+                                if (department.DepartmentId == Model.Employee.DepartmentId)
+                                {
+                                    <option selected value="@department.DepartmentId">@department.DepartmentName</option>
+                                }
+                                else
+                                {
+                                    <option value="@department.DepartmentId">@department.DepartmentName</option>
+                                }//end inner if
+                            }
+                            else
+                            {
+                                <option value="@department.DepartmentId">@department.DepartmentName</option>
+                            }//end outer if
+                    }//end foreach
+                 }
+                </select>
+                    
+            </div>
+        </div>
+        <br />
+        <!--submit button-->
+        <div class="row mb-3">
+            <div class="col-sm-2">
+                <button type='submit' class="btn btn-outline-success" style="margin-bottom:0.75rem; width:4.55rem;">Save</button>
+                <br />
+                <a href="/employees" class="btn btn-outline-danger" style="">Cancel</a>
+            </div>
+            <div class="col-sm-5">
+                
+            </div>
+        </div>
+    </form>
+}
