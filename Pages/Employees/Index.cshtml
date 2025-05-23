@@ -12,7 +12,7 @@
 <div class="center">
     <div class='container-fluid'>
         @section title_section {
-            <h3 style="color:dodgerblue;">Employee Details</h3>
+            <h3 style="color:dodgerblue;">Employee Details</h3> <div style="font-size:2.5vh;">(by last name)</div>
         }
         <div class='header' style="padding-bottom:0.75rem;">
             <a class="btn btn-outline-success btn-sm" href='/employees/create'>Create</a>
@@ -32,8 +32,9 @@
             </tr>
         </thead>
         <!--Table Body-->
-        <tbody id="employee-list">
-                @await Component.InvokeAsync("EmployeeList")
+        <tbody id="employee-list"><!--populated by js function in scripts-->
+            <!--previous populate method-->    
+            @* @await Component.InvokeAsync("EmployeeList") *@
         </tbody>
         </table>
         </div><!--close container-->
@@ -45,25 +46,23 @@
 @section scripts
 {
     <script>
-       
-        document.querySelector("#search-button").addEventListener("click", async()=>{
-        var filter = document.querySelector("#search-filter").value;
-        loadEmployees(filter);
 
-        });
+        //loads full Employees list by default
+        loadEmployees('');
+
+        document.querySelector("#search-button")
+            .addEventListener("click", async()=>
+            {
+                var filter = document.querySelector("#search-filter").value;
+                loadEmployees(filter);
+            });
 
         async function loadEmployees(filter){
-            var response = await fetch(`/department-list/${filter}`);
-            var employeesHtml = await response.text();
-                 document.querySelector("#department-list").innerHTML = employeesHtml;
+             var response = await fetch(`/employees?filter=${filter}&handler=EmployeesByFilter`);
+            var html = await response.text();
+                 document.querySelector("#employee-list").innerHTML = html;
        }
      
     </script>
-
-    @*loadDepartments('');
-
-    
-
-    
-</script> *@
 }
+<!--end scripts section-->
