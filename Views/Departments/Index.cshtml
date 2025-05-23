@@ -54,18 +54,21 @@
 <!--End of Index View Departments-->
 
 <!--script section for Search Bar functionality-->
-<script>
+@section scripts {
+    
+    <script>
 
-loadDepartments("");
+        loadDepartments("");
 
-document.querySelector("#search-button").addEventListener("click", async()=>{
-        var filter = document.querySelector("#search-filter").value;
+      document.querySelector("#search-button").addEventListener("click", async()=>{
+            var filter = document.querySelector("#search-filter").value;
             loadDepartments(filter);
-});
+        });
 
-async function loadDepartments(filter){
-        var response = await fetch(`/department-list/${filter}`);
+        async function loadDepartments(filter){
+            var response = await fetch(`/department-list/${filter}`);
             var departmentsHtml = await response.text();
-                document.querySelector("#department-list").innerHTML = departmentsHtml;
+            document.querySelector("#department-list").innerHTML = departmentsHtml;
+        }
+    </script>
 }
-</script>

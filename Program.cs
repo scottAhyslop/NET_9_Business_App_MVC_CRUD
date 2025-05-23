@@ -109,7 +109,7 @@ app.UseEndpoints(endpoints =>
 
 #pragma warning restore ASP0014
 
-app.MapControllers();
+app.MapControllers().RequireCors();
 app.MapDefaultControllerRoute();
 
 
