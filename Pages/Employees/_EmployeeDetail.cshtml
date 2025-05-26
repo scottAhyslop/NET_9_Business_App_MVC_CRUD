@@ -4,34 +4,38 @@
 @if (Model is not null && Model.Employee is not null)
 {
     <form method="post">
+        <!--put the form into an Anti-Forgery control set-->
         @Html.AntiForgeryToken()
+
+        <!--if editing, set the EmploiyeeId, else you are creating and Id will be supplied in repo-->
         @if (ViewBag.Action == "edit")
         {
             <input type='hidden' name='EmployeeId' value='@Model.Employee.EmployeeId'/>
         }
+
         <!--first name-->
-        <div class="row sm-3">
-            <div class="col-sm-2">
+        <div class="row mb-3">
+            <div class="col-3">
                 <label class="col-form-label">First Name: </label>
             </div>
-            <div class="col-sm-5">
-                <input type='text' name='Employee.FirstName' value='@Model.Employee.EmployeeFirstName' class="form-control" />
+            <div class="col-5">
+                <input type='text' name='Employee.EmployeeFirstName' value='@Model.Employee.EmployeeFirstName' class="form-control"/>
             </div>
         </div>
         <br />
-        <!--last name--> 
-        <div class="row sm-3">
-            <div class="col-sm-2">
+        <!--last name-->
+        <div class="row mb-3">
+            <div class="col-3">
                 <label class="col-form-label">Last Name: </label>
             </div>
-            <div class="col-sm-5">
-                <input type='text' name='Employee.LastName' value='@Model.Employee.EmployeeLastName' class="form-control" />
+            <div class="col-5">
+                <input type='text' name='Employee.EmployeeLastName' value='@Model.Employee.EmployeeLastName' class="form-control"/>
             </div>
         </div>
         <br />
         <!--position--> <!--working-->
-        <div class="row sm-3">
-            <div class="col-sm-2">
+        <div class="row mb-3">
+            <div class="col-sm-3">
                 <label class="col-form-label">Position: </label>
             </div>
             <div class="col-sm-5">
@@ -40,8 +44,8 @@
         </div>
         <br />
         <!--salary--> <!--working-->
-        <div class="row sm-3">
-            <div class="col-sm-2">
+        <div class="row mb-3">
+            <div class="col-sm-3">
                 <label class="col-form-label">Salary: </label>
             </div>
             <div class="col-sm-5">
@@ -51,7 +55,7 @@
         <br />
         <!--department--> <!--working-->
         <div class="row sm-3">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <label class="col-form-label">Department: </label>
             </div>
             <div class="col-sm-5">
@@ -93,12 +97,12 @@
         <br />
         <!--save/cancel buttons--> <!--working-->
         <div class="row sm-3">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 <button type='submit' class="btn btn-outline-success" style="margin-bottom:0.75rem; width:4.55rem;">Save</button>
                 <br />
                 <a href="/employees" class="btn btn-outline-danger" style="">Cancel</a>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 
             </div>
         </div>

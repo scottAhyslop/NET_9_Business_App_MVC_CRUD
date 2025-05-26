@@ -3,13 +3,14 @@
 
 @if (Model is not null)
 {
-    <tr>
+    <tr style="text-align:center;">
         <td>@Model.EmployeeId</td>
         <td>@Model.EmployeeFirstName</td>
         <td>@Model.EmployeeLastName</td>
         <td>@Model.EmployeePosition</td>
         <td>@Model.EmployeeSalary</td>
-        <td><a class="btn btn-outline-info btn-sm" href="/departments/details/@Model.DepartmentId">@Model.EmployeeDepartment?.DepartmentName</a></td>
+        <td><a class="btn btn-outline-info btn-sm" href="/departments/@Model.DepartmentId">@Model.EmployeeDepartment?.DepartmentName</a></td>
         <td><a class="btn btn-outline-warning btn-sm" href="/employees/edit/@Model.EmployeeId">Edit</a></td>
     </tr>
+
 }

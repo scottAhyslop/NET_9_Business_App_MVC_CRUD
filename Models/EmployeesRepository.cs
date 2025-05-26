@@ -11,19 +11,19 @@ namespace NET_9_Business_App_MVC_CRUD.Models
         //Sample data for the Employee Model
         private static List<Employee> _employees = new List<Employee>
             {
-            new(1,"Ozzy","Osbourne", "Membranophone Specialist", 1, 500000),
-            new(2,"Tony", "Iommi", "Guitar Player", 2, 500000),
-            new(3,"Geezer", "Butler", "Bass Player", 3, 500000),
-            new(4,"Bill", "Ward", "Bongos", 4, 500000),
-            new(5,"Robert", "Plant", "Vocalist", 1, 500000),
-            new(6,"Jimmy", "Page", "Guitar Player", 2, 500000),
-            new(7,"John Paul", "Jones", "Bass Player", 3, 500000),
-            new(8,"John", "Bonham", "Drummer", 4, 500000),
-            new(9,"Bruce", "Dickinson", "Vocalist", 1, 500000),
-            new(10,"Dave", "Murray", "Guitar Player", 2, 500000),
-            new(11,"Steve", "Harris", "Bass Player", 3, 500000),
-            new(12,"Nicko", "McBrain", "Drummer", 4, 500000),
-            new(13,"Adrian", "Smith", "Guitarist", 2, 500000)
+            new(1,"Ozzy","Osbourne", "Singer",500000, 1 ),
+            new(2,"Tony", "Iommi", "Guitar Player", 500000, 2),
+            new(3,"Geezer", "Butler", "Bass Player", 500000, 3),
+            new(4,"Bill", "Ward", "Bongos", 500000, 4),
+            new(5,"Robert", "Plant", "Vocalist", 500000, 1),
+            new(6,"Jimmy", "Page", "Guitar Player", 500000, 2),
+            new(7,"John Paul", "Jones", "Bass Player", 500000, 3),
+            new(8,"John", "Bonham", "Drummer", 500000, 4),
+            new(9,"Bruce", "Dickinson", "Vocalist", 500000, 1),
+            new(10,"Dave", "Murray", "Guitar Player", 500000, 2),
+            new(11,"Steve", "Harris", "Bass Player", 500000, 3),
+            new(12,"Nicko", "McBrain", "Drummer", 500000, 4),
+            new(13,"Adrian", "Smith", "Guitarist", 500000, 2)
             };
 
         #endregion
@@ -60,21 +60,10 @@ namespace NET_9_Business_App_MVC_CRUD.Models
         public static void AddEmployee(Employee? employee)
         {
             //Check if the department is null
-            if (employee is null)
-            {
-                //If it is null, return null obj
-                return;
-            }
-            else
+            if (employee is not null)
             {
                 int maxId = _employees.Max(emp => emp.EmployeeId);
                 employee.EmployeeId = maxId + 1;
-                employee.EmployeeFirstName = employee.EmployeeFirstName;
-                employee.EmployeeLastName = employee.EmployeeLastName;
-                employee.EmployeePosition = employee.EmployeePosition;
-                employee.EmployeeSalary = employee.EmployeeSalary;
-                employee.DepartmentId = employee.DepartmentId;
-
                 //Add the new employee to the list
                 _employees.Add(employee);
             }
