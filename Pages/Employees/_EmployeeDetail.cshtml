@@ -10,7 +10,8 @@
         <!--if editing, set the EmploiyeeId, else you are creating and Id will be supplied in repo-->
         @if (ViewBag.Action == "edit")
         {
-            <input type='hidden' name='EmployeeId' value='@Model.Employee.EmployeeId'/>
+            <input type="hidden" name="EmployeeId"
+                 value="@Model.Employee.EmployeeId"/>
         }
 
         <!--first name-->
@@ -21,7 +22,7 @@
             <div class="col-5">
                 <input type='text' name='Employee.EmployeeFirstName' value='@Model.Employee.EmployeeFirstName' class="form-control"/>
             </div>
-        </div>
+        </div><!--working-->
         <br />
         <!--last name-->
         <div class="row mb-3">
@@ -31,7 +32,7 @@
             <div class="col-5">
                 <input type='text' name='Employee.EmployeeLastName' value='@Model.Employee.EmployeeLastName' class="form-control"/>
             </div>
-        </div>
+        </div><!--working-->
         <br />
         <!--position--> <!--working-->
         <div class="row mb-3">
@@ -53,7 +54,7 @@
             </div>
         </div>
         <br />
-        <!--department--> <!--working-->
+        <!--department-->
         <div class="row sm-3">
             <div class="col-sm-3">
                 <label class="col-form-label">Department: </label>
@@ -65,10 +66,10 @@
                       <!--first position of select element, based on action-->
                       @if (ViewBag.Action == "create")
                         {
-                            <option selected value="0">-- Please Select Department --</option>
+                            <option selected value="0">-- Please Select --</option>
                         }else
                         {
-                            <option value="0" style="width:75%;">-- Please Select Department --</option>
+                            <option value="0" style="width:75%;">-- Please Select --</option>
                         }
 
                         @foreach (var department in Model.Departments)

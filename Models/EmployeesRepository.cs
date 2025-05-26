@@ -51,9 +51,9 @@ namespace NET_9_Business_App_MVC_CRUD.Models
         //end GetDepartments with string filter
 
         //GET by Id
-        public static Employee? GetEmployeeById(int id)
+        public static Employee? GetEmployeeById(int employeeId)
         {
-            return _employees.FirstOrDefault(emp => emp.EmployeeId == id);
+            return _employees.FirstOrDefault(emp => emp.EmployeeId == employeeId);
         }//end GetDepartmentById
 
         //POST Add department w/ data from form in the employee object
@@ -85,7 +85,9 @@ namespace NET_9_Business_App_MVC_CRUD.Models
                     empSelect.EmployeeLastName = employee.EmployeeLastName;
                     empSelect.EmployeePosition = employee.EmployeePosition;
                     empSelect.EmployeeSalary = employee.EmployeeSalary;
-                    empSelect.DepartmentId= employee.DepartmentId;
+                    empSelect.DepartmentId = employee.DepartmentId;
+                    empSelect.EmployeeDepartment = employee.EmployeeDepartment;
+                    
                     return true;//return that update was successful
                 }//end depSelect null check                
             }//end department null check
