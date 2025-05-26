@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NET_9_Business_App_MVC.CRUD.Models;
+using NET_9_Business_App_MVC_CRUD.Helpers;
 using NET_9_Business_App_MVC_CRUD.Models;
+
 
 namespace NET_9_Business_App_MVC_CRUD.Controllers
 {
@@ -46,9 +48,9 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
           if (!ModelState.IsValid)
           {
             //return itemized list of any errors
-            return View("DisplayErrors", GetErrors());
-
+            return View("Errors", ModelStateHelper.GetErrors(ModelState));
           }
+
           DepartmentsRepository.UpdateDepartment(department);
           //if update is successful, redirect to Index (probably with a message TODO: add message)
           return RedirectToAction(nameof(Index));
@@ -69,7 +71,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 if (!ModelState.IsValid)
                 {
                     //return itemized list of any errors
-                    return View("DisplayErrors", GetErrors());
+                    return View("Errors", ModelStateHelper.GetErrors(ModelState));
                 }
                 else
                 {
@@ -80,7 +82,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
             }//end department null check
 
             //return itemized list of any errors
-            return View("DisplayErrors", GetErrors());
+            return View("Errors", ModelStateHelper.GetErrors(ModelState));
 
 
         }//end Create to add created department from form object
@@ -91,8 +93,8 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 var department = DepartmentsRepository.GetDepartmentById(departmentId);
                 if (department is null)
                 {
-                    ModelState.AddModelError($"{departmentId}", "_departments not found");
-                    return View("DisplayErrors", GetErrors());
+                    ModelState.AddModelError($"{departmentId}", "Department not found");
+                    return View("Errors", ModelStateHelper.GetErrors(ModelState));
                 }
                 else if (department is not null)
                 {
@@ -101,7 +103,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 }
             //fall through if validation and null checks fail
             ModelState.AddModelError($"{departmentId}", "_departments not valid, no _departments Id found");//add an error, send it to the screen
-            return View("DisplayErrors", GetErrors());
+            return View("Errors", ModelStateHelper.GetErrors(ModelState));
         }
         //end Delete
 
@@ -110,11 +112,11 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
         public IActionResult DisplayErrors()
         {
             //return a view with the errors
-            return View(GetErrors());
+            return View("Errors", ModelStateHelper.GetErrors(ModelState));
         }//end DisplayErrors
 
         //GetErrors method to return a list of errors for display to DisplayErrors View
-        private List<string> GetErrors()
+     /*   private List<string> GetErrors()
         {
             List<string> errorMessages = new List<string>();
             foreach (var value in ModelState.Values)
@@ -125,7 +127,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
                 }
             }
             return errorMessages;
-        }//end GetErrors
+        }//end GetError*/
 
     }//end DepartmentsController
 }//end namespace

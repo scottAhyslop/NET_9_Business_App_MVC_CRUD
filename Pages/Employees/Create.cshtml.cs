@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NET_9_Business_App_MVC.CRUD.Models;
+using NET_9_Business_App_MVC_CRUD.Helpers;
 using NET_9_Business_App_MVC_CRUD.Models;
 using NET_9_Business_App_MVC_CRUD.ViewModels;
 
@@ -21,10 +22,12 @@ namespace NET_9_Business_App_MVC_CRUD.Pages.Employees
 
         public IActionResult OnPost()
         {
-           /* if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return RedirectToPage("DisplayErrors");
-            }*/
+                var errors = ModelStateHelper.GetErrors(this.ModelState);
+
+                return RedirectToPage("/Errors", new { errors });
+            }
             if (this.EmployeeViewModel is not null && EmployeeViewModel.Employee is not null)
             {
                 EmployeesRepository.AddEmployee(this.EmployeeViewModel.Employee);

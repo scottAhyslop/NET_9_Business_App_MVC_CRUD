@@ -1,0 +1,30 @@
+﻿@page
+@model NET_9_Business_App_MVC_CRUD.Pages.ErrorModel
+@{
+    ViewBag.Title = "Processing Errors";
+}
+@section title_section {
+    <h2 style="color:orangered;text-align:center;">Validation or Other Errors</h2>
+}
+
+<div id="output" class="container-fluid">
+    <h3 style="color:darkorange;">Error List</h3>
+    @{
+        // Check if the Model is valid and if there are any errors in the Model
+        if (Model is not null && Model.Errors is not null
+        && Model.Errors.Count>0)
+        {
+            <ul>
+                <!--Loop through the ModelState to collect error messages-->
+                @foreach (var errorMessage in Model.Errors)
+                {
+                    <li>@errorMessage</li>
+                }
+            </ul>
+
+            <!--end error list-->
+        }
+    }<!--end C# codeblock to parse through List<string> input params-->
+    <a href='/' class="btn btn-outline-warning">Back</a>
+</div><!--end output-->
+<!--end ErrorsView-->
