@@ -34,7 +34,7 @@ namespace NET_9_Business_App_MVC_CRUD.Controllers
 
             if (department == null)
             {
-                return View("DisplayErrors", new List<string>() { "Department not valid" });
+                return View("DisplayErrors", new List<string>() { "Department not found" });
             }
 
             return View(department);

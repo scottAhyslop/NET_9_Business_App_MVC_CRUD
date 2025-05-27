@@ -1,4 +1,5 @@
 ﻿@using NET_9_Business_App_MVC.CRUD.Models
+
 @model Department
 
 <!--called from _DepartmentList.cshtml partial view-->
@@ -13,7 +14,7 @@
             <td>@Model.DepartmentDescription</td>
             <td>@Model.DepartmentAnnualSales</td>
             <td style="padding-top:0.75rem;"><!--spacing for stylistic reasons-->
-                <a class="btn btn-outline-warning btn-sm" href="/Departments/Details/@Model.DepartmentId">Edit</a>
+                <a class="btn btn-link btn-outline-warning btn-sm" href="/departments/details/@Model.DepartmentId">Edit</a>
             </td>            
         </tr>
         <!--end Department list item-->

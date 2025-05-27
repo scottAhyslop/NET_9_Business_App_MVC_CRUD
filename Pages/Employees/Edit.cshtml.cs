@@ -39,7 +39,7 @@ namespace NET_9_Business_App_MVC_CRUD.Pages.Employees
                 EmployeeViewModel.Employee is not null)
             {
                 //Update the Employee
-                EmployeesRepository.UpdateEmployee(employee);
+                EmployeesRepository.UpdateEmployee(EmployeeViewModel.Employee);
             }
 
             //if successful, return to the Index page, showing the new employee

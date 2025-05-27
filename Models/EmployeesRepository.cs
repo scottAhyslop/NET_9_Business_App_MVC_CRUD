@@ -74,23 +74,20 @@ namespace NET_9_Business_App_MVC_CRUD.Models
         public static bool UpdateEmployee(Employee? employee)
         {
             //null check for employee object
-            if (employee is not null)
+            if (employee != null)
             {
-                // Find the employee to update in the _employees list
-                var empSelect = _employees.FirstOrDefault(emp => emp.EmployeeId == employee.EmployeeId);
+                var empSelect = _employees.First(emp => employee.EmployeeId == employee.EmployeeId);
                 if (empSelect is not null)
                 {
-                    // Update the selected employee properties from the provided employee object
-                    empSelect.EmployeeFirstName = employee.EmployeeFirstName;
+                    empSelect.EmployeeFirstName = employee.EmployeeFirstName;   
                     empSelect.EmployeeLastName = employee.EmployeeLastName;
-                    empSelect.EmployeePosition = employee.EmployeePosition;
+                    empSelect.EmployeePosition = employee.EmployeePosition; 
                     empSelect.EmployeeSalary = employee.EmployeeSalary;
                     empSelect.DepartmentId = employee.DepartmentId;
-                    empSelect.EmployeeDepartment = employee.EmployeeDepartment;
-                    
-                    return true;//return that update was successful
-                }//end depSelect null check                
-            }//end department null check
+
+                    return true;
+                }
+            }
             return false;
         }
         //end UpdateEmployee
