@@ -48,8 +48,7 @@ namespace NET_9_Business_App_MVC_CRUD.Pages.Employees
         //DeleteEmployee functionality
         public IActionResult OnPostDeleteEmployee(int employeeId) 
         {
-            if (!ModelState.IsValid)
-            {
+           
                 //find the emp based on input param
                 var employee = EmployeesRepository.GetEmployeeById(employeeId);
                 //null check to Errors if no employee found
@@ -61,7 +60,7 @@ namespace NET_9_Business_App_MVC_CRUD.Pages.Employees
                 }
                 //remove the employee from repo
                 EmployeesRepository.DeleteEmployee(employee);
-            }
+            
             //send back to /employees
             return RedirectToPage("Index");
         }//end DeleteEmployee

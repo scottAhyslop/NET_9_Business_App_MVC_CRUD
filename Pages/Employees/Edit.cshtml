@@ -26,6 +26,24 @@
                 </div>
             </form><!--end delete form-->
         }<!--end Model null check-->
-        <a class="btn btn-outline-primary btn-sm" href="/employees" style="width:3.75rem;">Back</a><!--not working ?!?-->
+        <a class="btn btn-outline-primary btn-sm" href="/employees" style="width:3.75rem;">Back</a>
     </div><!--end container-->
 </div><!--end center class-->
+@section scripts
+{
+    <script>
+         document.querySelector("#delete-employee").addEventListener("click", (event) =>
+            {
+                  event.preventDefault();//prevents default submission of form
+
+                   const employeeName = '@Model?.EmployeeViewModel?.Employee?.EmployeeLastName';
+
+                  const userConfirmation =  confirm(`Are you sure you want to delete ${employeeName}?`);
+
+                  if(userConfirmation)
+                  {
+                     document.forms["DeleteEmployeeForm"].submit();
+                  }
+            });
+    </script>
+}
