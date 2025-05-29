@@ -12,7 +12,20 @@
         <br />
 
         @await Html.PartialAsync("_EmployeeDetail", Model.EmployeeViewModel) 
-        
-        <button href="/employees" class="btn btn-outline-primary btn-sm" style="width:3.75rem;">Back</button>
+        @if (Model is not null)
+        {
+            <!--delete button for Edit form-->
+            <form name="DeleteEmployeeForm"
+                  method="post"
+                  action="/employees/edit/@Model.EmployeeViewModel?.Employee?.EmployeeId?handler=DeleteEmployee">
+                @Html.AntiForgeryToken()
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <button type='submit' id="delete-employee" class="btn btn-outline-danger btn-sm" style="width:3.75rem;">Delete</button>
+                    </div>
+                </div>
+            </form><!--end delete form-->
+        }<!--end Model null check-->
+        <a class="btn btn-outline-primary btn-sm" href="/employees" style="width:3.75rem;">Back</a><!--not working ?!?-->
     </div><!--end container-->
 </div><!--end center class-->

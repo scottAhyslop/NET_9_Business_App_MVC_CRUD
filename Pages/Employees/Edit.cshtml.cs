@@ -45,6 +45,26 @@ namespace NET_9_Business_App_MVC_CRUD.Pages.Employees
             return RedirectToPage("Index");
         }//end OnPost(Employee employee)
 
-    }//end Edit PageModel
+        //DeleteEmployee functionality
+        public IActionResult OnPostDeleteEmployee(int employeeId) 
+        {
+            if (!ModelState.IsValid)
+            {
+                //find the emp based on input param
+                var employee = EmployeesRepository.GetEmployeeById(employeeId);
+                //null check to Errors if no employee found
+                if (employee == null)
+                {
+                    ModelState.AddModelError("id", "Employee not found");
+                    var errors = ModelStateHelper.GetErrors(ModelState);
+                    return RedirectToPage("/Errors", new { errors });
+                }
+                //remove the employee from repo
+                EmployeesRepository.DeleteEmployee(employee);
+            }
+            //send back to /employees
+            return RedirectToPage("Index");
+        }//end DeleteEmployee
 
+    }//end Edit PageModel
 }//end namespace
