@@ -1,5 +1,6 @@
 ﻿
 using NET_9_Business_App_MVC.CRUD.Models;
+using NET_9_Business_App_MVC_CRUD.Controllers;
 
 namespace NET_9_Business_App_MVC_CRUD.Models
 {

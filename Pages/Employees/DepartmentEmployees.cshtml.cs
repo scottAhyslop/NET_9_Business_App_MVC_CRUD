@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NET_9_Business_App_MVC_CRUD.Models;
+using NET_9_Business_App_MVC_CRUD.Controllers;
 
 namespace NET_9_Business_App_MVC_CRUD.Pages.Employees
 {
