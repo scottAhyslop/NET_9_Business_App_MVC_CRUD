@@ -1,111 +1,110 @@
 ﻿@model EmployeeViewModel
-
-<!--null check for both the ViewModel and the Employee within-->
 @if (Model is not null && Model.Employee is not null)
 {
     <form method="post">
-        <!--put the form into an Anti-Forgery control set-->
         @Html.AntiForgeryToken()
 
-        <!--if editing, set the EmploiyeeId, else you are creating and Id will be supplied in repo-->
+        <!--if the Action method passed in from Page is 'edit', use existing Id, else, EmployeeId will be created further down by repo-->
         @if (ViewBag.Action == "edit")
         {
-            <input type="hidden" name="EmployeeId"
-                 value="@Model.Employee.EmployeeId"/>
-        }
+            <input type="hidden" name="Employee.EmployeeId" value="@Model.Employee.EmployeeId"/>
+        }<!--end 'edit' action check-->
 
-        <!--first name-->
+        <!--employee first name-->
         <div class="row mb-3">
-            <div class="col-3">
+            <div class="col-sm-3">
                 <label class="col-form-label">First Name: </label>
             </div>
-            <div class="col-5">
+            <div class="col-sm-6">
                 <input type='text' name='Employee.EmployeeFirstName' value='@Model.Employee.EmployeeFirstName' class="form-control"/>
             </div>
-        </div><!--working-->
-        <br />
-        <!--last name-->
+        </div>
+
+        <!--employee last name-->
         <div class="row mb-3">
-            <div class="col-3">
+            <div class="col-sm-3">
                 <label class="col-form-label">Last Name: </label>
             </div>
-            <div class="col-5">
-                <input type='text' name='Employee.EmployeeLastName' value='@Model.Employee.EmployeeLastName' class="form-control"/>
+            <div class="col-sm-6">
+                <input type='text' name='Employee.EmployeeLastName' value='@Model.Employee.EmployeeLastName' class="form-control" />
             </div>
-        </div><!--working-->
-        <br />
-        <!--position--> <!--working-->
+        </div>
+
+        <!--employee position-->
         <div class="row mb-3">
             <div class="col-sm-3">
                 <label class="col-form-label">Position: </label>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-6">
                 <input type='text' name='Employee.EmployeePosition' value='@Model.Employee.EmployeePosition' class="form-control" />
             </div>
         </div>
-        <br />
-        <!--salary--> <!--working-->
+
+        <!--employee salary-->
         <div class="row mb-3">
             <div class="col-sm-3">
                 <label class="col-form-label">Salary: </label>
             </div>
-            <div class="col-sm-5">
-                <input type='number' name='Employee.EmployeeSalary' value='@Model.Employee.EmployeeSalary' class="form-control" />
+            <div class="col-sm-6">
+                <input type='text' name='Employee.EmployeeSalary' value='@Model.Employee.EmployeeSalary' class="form-control" />
             </div>
         </div>
-        <br />
-        <!--department-->
+
+        <!--employee department-->
         <div class="row mb-3">
             <div class="col-sm-3">
                 <label class="col-form-label">Department: </label>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-6">
                 <select name="Employee.DepartmentId" class="form-control">
-                  @if (Model.Departments is not null)
-                  {
-                      <!--first position of select element, based on action-->
-                      @if (ViewBag.Action == "create")
+                    @if (Model.Departments is not null)
+                    {
+                        <!--if Action is Create, populate whole list-->
+                        @if (ViewBag.Action == "create")
                         {
                             <option selected value="0">-- Please Select --</option>
-                        }else
+                        }
+                        else
                         {
-                            <option value="0" style="width:75%;">-- Please Select --</option>
+                            <option value="0">-- Please Select --</option>
                         }
 
                         @foreach (var department in Model.Departments)
                         {
-                            if (ViewBag.Action == "edit")
+                            <!--if action is 'edit' then start select with current Employe's Department Name-->
+                            @if (ViewBag.Action == "edit")
                             {
-                                if (department.DepartmentId == Model.Employee.DepartmentId)
+                                @if (department.DepartmentId == Model.Employee.DepartmentId)
                                 {
-                                    <option selected value="@department.DepartmentId">@department.DepartmentName</option>
+                                   <option selected value="@department.DepartmentId">@department.DepartmentName</option>
                                 }
                                 else
                                 {
                                     <option value="@department.DepartmentId">@department.DepartmentName</option>
-                                }//end inner if
-                            }//end if "edit"
+                                }
+                            }//end 'edit' Action check
+                            //otherwise populate the select list normally
                             else
                             {
                                 <option value="@department.DepartmentId">@department.DepartmentName</option>
-                            }//end outer if
-                    }//end foreach
-                 }
+                            }
+                        }//end foreach
+                    }
                 </select>
-                    
             </div>
         </div>
-        <br />
-        <!--save/cancel buttons--> <!--working-->
-        <div class="row sm-3">
+
+        <!--save/cancel buttons-->
+        <div class="row mb-3">
             <div class="col-sm-3">
-                <button type='submit' class="btn btn-outline-success" style="margin-bottom:0.75rem; width:4.55rem;">Save</button>
-                <br />
-                <a href="/employees" class="btn btn-outline-danger" style="">Cancel</a>
-            </div>
-            <div class="col-sm-5">
-                
+                <button type='submit' class="btn btn-outline-success btn-sm" style="width:3.75rem;">Save</button>
             </div>
         </div>
+        <div class="row mb-3">
+            <div class="col-sm-3">
+            <a href="/employees" class="btn btn-outline-danger btn-sm">Cancel</a>
+            </div>
+        </div>
+        
     </form>
 }

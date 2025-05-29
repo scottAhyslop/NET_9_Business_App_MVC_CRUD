@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using NET_9_Business_App_MVC.CRUD.Models;
 using NET_9_Business_App_MVC_CRUD.Helpers;
 using NET_9_Business_App_MVC_CRUD.Models;
 using NET_9_Business_App_MVC_CRUD.ViewModels;
@@ -25,7 +24,7 @@ namespace NET_9_Business_App_MVC_CRUD.Pages.Employees
         }//end OnGet <!--working-->
 
         //when form is submitted, it returns an employee object here
-        public IActionResult OnPost(Employee employee)
+        public IActionResult OnPost()
         {
             //check if ModelState is valid, otherwise direct to Errors
             if (!ModelState.IsValid)
@@ -36,7 +35,7 @@ namespace NET_9_Business_App_MVC_CRUD.Pages.Employees
 
             //another null check on both EmployeeView Model and the Employee within
             if (EmployeeViewModel is not null &&
-                EmployeeViewModel.Employee is not null)
+                EmployeeViewModel.Employee != null)
             {
                 //Update the Employee
                 EmployeesRepository.UpdateEmployee(EmployeeViewModel.Employee);

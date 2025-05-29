@@ -74,20 +74,25 @@ namespace NET_9_Business_App_MVC_CRUD.Models
         public static bool UpdateEmployee(Employee? employee)
         {
             //null check for employee object
-            if (employee != null)
+            if (employee is not null)
             {
-                var empSelect = _employees.First(emp => employee.EmployeeId == employee.EmployeeId);
+                //find the employee that matches the input params' Id
+                var empSelect = _employees.FirstOrDefault(emp => emp.EmployeeId == employee.EmployeeId);
+                
+                //null check found employee
                 if (empSelect is not null)
                 {
+                    //if passed null check update the props
                     empSelect.EmployeeFirstName = employee.EmployeeFirstName;   
                     empSelect.EmployeeLastName = employee.EmployeeLastName;
                     empSelect.EmployeePosition = employee.EmployeePosition; 
                     empSelect.EmployeeSalary = employee.EmployeeSalary;
                     empSelect.DepartmentId = employee.DepartmentId;
 
+                    //return that the addition was successful
                     return true;
-                }
-            }
+                }//end empSelect null check
+            }//end employee input param null check 
             return false;
         }
         //end UpdateEmployee
@@ -98,20 +103,10 @@ namespace NET_9_Business_App_MVC_CRUD.Models
             //null check for employee object
             if (employee is not null)
             {
-                // Find the employee to delete in the _employees list
-                var delEmp = _employees.FirstOrDefault(emp => emp.EmployeeId == employee.EmployeeId);
-                //null check for selected employee object
-                if (delEmp is not null)
-                {
                     // Remove the department from the list
-                    _employees.Remove(delEmp);
+                    _employees.Remove(employee);
                     return true;
-                }
-                else
-                {
-                    // If the department is not found, return false
-                    return false;
-                } // end delDep null check
+            
             } // end department null check
             // If the department is null, return false
             return false;

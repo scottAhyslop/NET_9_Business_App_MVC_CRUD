@@ -9,8 +9,10 @@
         @section title_section {
             <h3 style="color:yellowgreen;">Edit Employee</h3>
         }
-
         <br />
-        @await Html.PartialAsync("_EmployeeDetail", Model.EmployeeViewModel)  
+
+        @await Html.PartialAsync("_EmployeeDetail", Model.EmployeeViewModel) 
+        
+        <button href="/employees" class="btn btn-outline-primary btn-sm" style="width:3.75rem;">Back</button>
     </div><!--end container-->
 </div><!--end center class-->
