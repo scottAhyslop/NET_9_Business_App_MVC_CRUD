@@ -1,4 +1,5 @@
-﻿<!-- <title></title> element for page and action type-->
+﻿
+<!-- <title></title> element for page and action type-->
 @{
     ViewBag.Title = "Departments List";
     ViewBag.Action = "edit";
@@ -19,7 +20,9 @@
     <div class='container-fluid'>
       
         <div class='header' style="padding-bottom:0.75rem;">
-            <a class="btn btn-outline-success btn-sm" href='/departments/create'>Create</a>
+            <a class="btn btn-outline-success btn-sm"
+               asp-controller="Departments"
+               asp-action="Create">Create</a>
         </div>
         @if (Model is not null)//null check of the model
         {

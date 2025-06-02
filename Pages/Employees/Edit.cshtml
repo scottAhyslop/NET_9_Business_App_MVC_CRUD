@@ -1,4 +1,4 @@
-﻿@page "{employeeId:int}"
+﻿@page "/Edit/{employeeId:int}"
 @model NET_9_Business_App_MVC_CRUD.Pages.Employees.EditModel
 @{
     ViewData["Title"] = "Edit Employee";
@@ -12,6 +12,7 @@
         <br />
 
         @await Html.PartialAsync("_EmployeeDetail", Model.EmployeeViewModel) 
+
         @if (Model is not null)
         {
             <!--delete button for Edit form-->

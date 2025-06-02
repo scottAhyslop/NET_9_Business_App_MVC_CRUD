@@ -9,8 +9,16 @@
         <td>@Model.EmployeeLastName</td>
         <td>@Model.EmployeePosition</td>
         <td>@Model.EmployeeSalary</td>
-        <td><a class="btn btn-outline-info btn-sm" href="/departments/details/@Model.EmployeeDepartment?.DepartmentId">@Model.EmployeeDepartment?.DepartmentName</a></td>
-        <td><a class="btn btn-outline-warning btn-sm" href="/employees/edit/@Model.EmployeeId">Edit</a></td>
+        <td><a class="btn btn-outline-info btn-sm"
+            asp-controller="Departments"
+            asp-action="Details"
+            asp-route-id="@Model.EmployeeDepartment?.DepartmentId"
+            >@Model.EmployeeDepartment?.DepartmentName</a></td>
+        <td>
+            <a class="btn btn-outline-warning btn-sm"
+            asp-page="/employees/edit/"
+            asp-route-departmentId="@Model.EmployeeId"
+            >Edit</a></td>
     </tr>
 
 }

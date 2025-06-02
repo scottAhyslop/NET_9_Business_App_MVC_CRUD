@@ -57,13 +57,16 @@
     <div class="row mb-3">
         <div class="col-sm-2">
             <button type='submit' class="btn btn-outline-success" style="margin-bottom:0.75rem; width:4.55rem;">Save</button>
-        <a href="/employees"  class="btn btn-outline-danger" style="">Cancel</a>
+        <a asp-controller="Departments" asp-action="Index" class="btn btn-outline-danger" style="">Cancel</a>
         </div>
         <div class="col-sm-4">
         @{
             if (ViewBag.Action == "edit")
             {
-                <a href="/employees/departmentemployees/@Model.DepartmentId" class="btn btn-outline-warning btn-sm">Employees</a>
+                <a asp-page="/employees/departmentemployees"
+                    asp-route-id="@Model.DepartmentId"
+                    class="btn btn-outline-warning btn-sm"
+                    >Employees</a>
             }
         }
         </div>
